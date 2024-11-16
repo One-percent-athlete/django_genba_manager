@@ -5,7 +5,13 @@ from .forms import RegisterForm
 
 def home(request, year, month):
     if request.user.is_authenticated:
-        return render(request, "home.html")
+
+        context = {
+            "year": year,
+            "month": month
+        }
+
+        return render(request, "home.html", context=context)
     else:
         return redirect("login")
 
@@ -26,7 +32,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ("You Are Logged Out"))
-    return redirect("home")
+    return redirect("login")
 
 def register_user(request):
      if request.method == "POST":
