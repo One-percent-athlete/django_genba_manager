@@ -3,6 +3,7 @@ from genba import views
 
 urlpatterns = [
     path('', views.home, name="home"),
+    path('schedule/', views.schedule, name="schedule"),
     path('report/', views.report, name="report"),
     path('<int:year>/<int:month>/<int:day>/', views.dashboard, name="dashboard"),
     path('login_user/', views.login_user, name="login"),

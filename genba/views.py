@@ -28,6 +28,11 @@ def report(request):
     
 @login_required(login_url='/login/')
 def home(request):
+        return render(request, "home.html")
+    
+
+@login_required(login_url='/login/')
+def schedule(request):
     year = int(x.year)
     month = int(x.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
@@ -39,7 +44,7 @@ def home(request):
             "month": month,
             "cal": cal,
         }
-         return render(request, "home.html", context=context)
+         return render(request, "schedule.html", context=context)
     else:
         return redirect('login')
 

@@ -5,13 +5,13 @@ Home
 {% block content %}
 {% include 'assets/sidebar.html' %}
 <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-        {% include 'assets/calendar.html' %}
-    </div>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="px-auto">
+            <h1 class="text-4xl py-10">連絡事項<a class="pl-8" href="#">＋</a></h1>
+        </div>
+        <div class="px-auto">
             <h1 class="text-4xl py-10">本日の作業内容<a class="pl-8" href="#">＋</a></h1>
-            <h2 class="text-6xl m-0 mr-3"></h2>
         </div>
         <table class="w-full text-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead
@@ -159,7 +159,5 @@ Home
             </tbody>
         </table>
     </div>
-
-
 </div>
 {% endblock %}
