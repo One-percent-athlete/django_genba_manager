@@ -9,7 +9,10 @@ Home
         {% include 'assets/calendar.html' %}
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <h1 class="text-4xl text-center py-10">本日の作業内容</h1>
+        <div class="flex items-center px-auto">
+            <h1 class="text-4xl text-center py-10">本日の作業内容</h1>
+            <h2 class="text-6xl m-0 mr-3"><a href="#">＋</a></h2>
+        </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 border-b">
             <thead class="text-xs text-gray-700 uppercase">
                 <tr>
@@ -119,5 +122,6 @@ Home
             </tbody>
         </table>
     </div>
+
 </div>
 {% endblock %}
