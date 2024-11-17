@@ -5,9 +5,20 @@ Home
 {% endblock %}
 
 {% block content %}
-This is the home page
-<h1>
-    <a href="{% url 'logout' %}">Logout</a>
-</h1>
+<style>
+    .td {
+        border: 3px;
+    }
+</style>
+<center>
+    This is the home page
+
+    {{ cal }}
+    <h1>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'dashboard' year=2024 month=11 day=7 %}">Dashboard</a>
+    </h1>
+</center>
+
 
 {% endblock %}

@@ -1,27 +1,40 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+import calendar
+from django.utils.safestring import mark_safe
 from django.contrib import messages
 from .forms import RegisterForm
 import datetime
 x = datetime.datetime.now()
 
-def index(request, year, month, day):
+def dashboard(request, year, month, day):
     if request.user.is_authenticated:
         context = {
             "year": year,
             "month": month,
-            "day": day
+            "day": day,
         }
-        return render(request, "index.html", context=context)
+        return render(request, "dashboard.html", context=context)
     else:
         return redirect("login")
     
 
 def home(request):
+    year = int(x.year)
+    month = int(x.month)
+    cal = calendar.HTMLCalendar().formatmonth(year, month)
+    cal = cal.replace('<td ', '<td width="150" height="150"')
+    cal = mark_safe(cal)
     if request.user.is_authenticated:
-        return render(request, "home.html")
+         context = {
+            "year": year,
+            "month": month,
+            "cal": cal,
+        }
+         return render(request, "home.html", context=context)
     else:
-        return redirect("login")
+        return redirect('login')
+
     
 
 
