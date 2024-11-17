@@ -12,13 +12,26 @@ Home
 </style>
 <center>
     This is the home page
-
-    {{ cal }}
+    <div class="container">
+        <div id='calendar'></div>
+    </div>
     <h1>
         <a href="{% url 'logout' %}">Logout</a>
         <a href="{% url 'dashboard' year=2024 month=11 day=7 %}">Dashboard</a>
     </h1>
 </center>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+
+</script>
 
 
 {% endblock %}

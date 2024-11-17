@@ -23,7 +23,7 @@ def home(request):
     year = int(x.year)
     month = int(x.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
-    cal = cal.replace('<td ', '<td width="150" height="150"')
+    cal = cal.replace('<td ', '<td width="150" height="150" hover')
     cal = mark_safe(cal)
     if request.user.is_authenticated:
          context = {
