@@ -5,16 +5,25 @@ from .forms import RegisterForm
 import datetime
 x = datetime.datetime.now()
 
-def home(request, year, month, day):
+def index(request, year, month, day):
     if request.user.is_authenticated:
         context = {
-            "year": x.year,
-            "month": x.month,
-            "date":x.day
+            "year": year,
+            "month": month,
+            "day": day
         }
-        return render(request, "home.html", context=context)
+        return render(request, "index.html", context=context)
     else:
         return redirect("login")
+    
+
+def home(request):
+    if request.user.is_authenticated:
+        return render(request, "home.html")
+    else:
+        return redirect("login")
+    
+
 
 def login_user(request):
     if request.method == "POST":
@@ -23,7 +32,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("home", year=x.year, month=x.month, day=x.day)
+            return redirect("home")
         else:
             messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
             return redirect("login")
@@ -45,7 +54,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ("Registration Successful!!"))
-            return redirect("home")
+            return redirect("login")
      else:
         form = RegisterForm()
 
