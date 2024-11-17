@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 import calendar
 from django.utils.safestring import mark_safe
 from django.contrib import messages
@@ -7,6 +8,7 @@ from .forms import RegisterForm
 import datetime
 x = datetime.datetime.now()
 
+@login_required(login_url='/login/')
 def dashboard(request, year, month, day):
     if request.user.is_authenticated:
         context = {
@@ -19,6 +21,12 @@ def dashboard(request, year, month, day):
         return redirect("login")
     
 
+@login_required(login_url='/login/')
+def report(request):    
+        return render(request, "report.html")
+
+    
+@login_required(login_url='/login/')
 def home(request):
     year = int(x.year)
     month = int(x.month)
@@ -52,6 +60,7 @@ def login_user(request):
     else:
         return render(request, "authenticate/login.html", {})
 
+@login_required(login_url='/login/')
 def logout_user(request):
     logout(request)
     messages.success(request, ("You Are Logged Out"))
