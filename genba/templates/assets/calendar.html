@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="container">
     <div id='calendar'></div>
 </div>
@@ -20,6 +22,24 @@
                 day: '日',
                 list: '一覧'
             },
+            events:
+                [
+                    {
+                        title: "青葉ホームズ：田中、伊藤", start: "2024-11-11", color: '#08cad1',
+                    },
+                    {
+                        title: "青葉ホームズ：田中、伊藤", start: "2024-11-11", end: "2024-11-18", color: '#42d6a4'
+                    },
+                    {
+                        title: "青葉ホームズ：田中、伊藤", start: "2024-11-15", color: '#c780e8'
+                    },
+                    {
+                        title: "青葉ホームズ：田中、伊藤", start: "2024-11-03", color: '#ffb480'
+                    },
+                    {
+                        title: "青葉ホームズ：田中、伊藤", start: "2024-11-21", color: '#59adf6'
+                    },
+                ]
         });
         calendar.render();
     });
