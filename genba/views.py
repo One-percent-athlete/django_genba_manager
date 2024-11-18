@@ -29,6 +29,10 @@ def report(request):
 def genba_list(request):    
         return render(request, "genba_list.html")
 
+@login_required(login_url='/login/')
+def genba_details(request):    
+        return render(request, "genba_details.html")
+
 
 @login_required(login_url='/login/')
 def user_list(request):    
