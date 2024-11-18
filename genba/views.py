@@ -7,18 +7,6 @@ from django.contrib import messages
 from .forms import RegisterForm
 import datetime
 x = datetime.datetime.now()
-
-@login_required(login_url='/login/')
-def dashboard(request, year, month, day):
-    if request.user.is_authenticated:
-        context = {
-            "year": year,
-            "month": month,
-            "day": day,
-        }
-        return render(request, "dashboard.html", context=context)
-    else:
-        return redirect("login")
     
 
 @login_required(login_url='/login/')

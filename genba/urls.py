@@ -10,7 +10,6 @@ urlpatterns = [
     path('genba_details/', views.genba_details, name="genba_details"),
     path('user_list/', views.user_list, name="user_list"),
     path('report_list/', views.report_list, name="report_list"),
-    path('<int:year>/<int:month>/<int:day>/', views.dashboard, name="dashboard"),
     path('login_user/', views.login_user, name="login"),
     path('logout_user/', views.logout_user, name="logout"),
     path('register_user/', views.register_user, name="register"),
