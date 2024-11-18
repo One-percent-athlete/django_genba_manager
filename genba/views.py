@@ -61,6 +61,10 @@ def schedule(request):
     else:
         return redirect('login')
 
+@login_required(login_url='/login/')
+def schedule_details(request):
+    return render(request, "schedule_details.html")
+
     
 
 

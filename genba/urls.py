@@ -4,6 +4,7 @@ from genba import views
 urlpatterns = [
     path('', views.home, name="home"),
     path('schedule/', views.schedule, name="schedule"),
+    path('schedule_details/', views.schedule_details, name="schedule_details"),
     path('report/', views.report, name="report"),
     path('genba_list/', views.genba_list, name="genba_list"),
     path('user_list/', views.user_list, name="user_list"),
