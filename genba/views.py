@@ -25,6 +25,15 @@ def dashboard(request, year, month, day):
 def report(request):    
         return render(request, "report.html")
 
+@login_required(login_url='/login/')
+def genba_list(request):    
+        return render(request, "genba_list.html")
+
+
+@login_required(login_url='/login/')
+def user_list(request):    
+        return render(request, "user_list.html")
+
     
 @login_required(login_url='/login/')
 def home(request):
