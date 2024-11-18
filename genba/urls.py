@@ -7,6 +7,7 @@ urlpatterns = [
     path('report/', views.report, name="report"),
     path('genba_list/', views.genba_list, name="genba_list"),
     path('user_list/', views.user_list, name="user_list"),
+    path('report_list/', views.report_list, name="report_list"),
     path('<int:year>/<int:month>/<int:day>/', views.dashboard, name="dashboard"),
     path('login_user/', views.login_user, name="login"),
     path('logout_user/', views.logout_user, name="logout"),
