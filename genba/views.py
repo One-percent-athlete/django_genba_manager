@@ -9,34 +9,34 @@ import datetime
 x = datetime.datetime.now()
     
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def report(request):    
         return render(request, "report.html")
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def genba_list(request):    
         return render(request, "genba_list.html")
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def genba_details(request):    
         return render(request, "genba_details.html")
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def user_list(request):    
         return render(request, "user_list.html")
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def report_list(request):    
         return render(request, "report_list.html")
 
     
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def home(request):
         return render(request, "home.html")
     
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def schedule(request):
     year = int(x.year)
     month = int(x.month)
@@ -51,14 +51,11 @@ def schedule(request):
         }
          return render(request, "schedule.html", context=context)
     else:
-        return redirect('login')
+        return redirect('login_user')
 
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
-
-    
-
 
 def login_user(request):
     if request.method == "POST":
@@ -70,16 +67,16 @@ def login_user(request):
             return redirect("home")
         else:
             messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
-            return redirect("login")
+            return redirect("login_user")
     else:
         return render(request, "authenticate/login.html", {})
     
 
-@login_required(login_url='/login/')
+@login_required(login_url='/login_user/')
 def logout_user(request):
     logout(request)
     messages.success(request, ("You Are Logged Out"))
-    return redirect("login")
+    return redirect("login_user")
 
 def register_user(request):
      if request.method == "POST":
@@ -91,7 +88,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ("Registration Successful!!"))
-            return redirect("login")
+            return redirect("login_user")
      else:
         form = RegisterForm()
 
