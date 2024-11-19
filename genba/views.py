@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import calendar
-from django.utils.safestring import mark_safe
 from django.contrib import messages
-from .forms import RegisterForm
+from django.shortcuts import render, redirect
+from django.utils.safestring import mark_safe
+import calendar
 import datetime
 x = datetime.datetime.now()
-    
+
+from .forms import RegisterForm
 
 @login_required(login_url='/login_user/')
 def report(request):    
@@ -21,7 +21,6 @@ def genba_list(request):
 def genba_details(request):    
         return render(request, "genba_details.html")
 
-
 @login_required(login_url='/login_user/')
 def user_list(request):    
         return render(request, "user_list.html")
@@ -30,11 +29,9 @@ def user_list(request):
 def report_list(request):    
         return render(request, "report_list.html")
 
-    
 @login_required(login_url='/login_user/')
 def home(request):
         return render(request, "home.html")
-    
 
 @login_required(login_url='/login_user/')
 def schedule(request):
@@ -77,22 +74,6 @@ def logout_user(request):
     logout(request)
     messages.success(request, ("You Are Logged Out"))
     return redirect("login_user")
-
-# def register_user(request):
-#      if request.method == "POST":
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data["username"]
-#             password = form.cleaned_data["password1"]
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             messages.success(request, ("Registration Successful!!"))
-#             return redirect("login_user")
-#      else:
-#         form = RegisterForm()
-
-#      return render(request, "authenticate/register.html", {"form": form})
 
 def add_user(request):
      if request.method == "POST":
