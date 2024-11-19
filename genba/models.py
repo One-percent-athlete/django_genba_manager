@@ -1,3 +1,12 @@
 from django.db import models
 
-# class UserModel(models.Model):
+class Genba(models.Model):
+    name = models.CharField("Genba", max_length=255)
+    client = models.CharField("Client", max_length=255)
+    address = models.CharField("Address", max_length=255)
+    job_description = models.CharField("Job description", max_length=255)
+    remarks = models.CharField("Remarks", max_length=255)
+    start_date = models.DateTimeField("Start date")
+    end_date = models.DateTimeField("End date")
+    # in_charge_person = models.ForeignKey()
+    date_created = models.DateTimeField(auto_now=True)
