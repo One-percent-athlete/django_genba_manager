@@ -10,3 +10,6 @@ class Genba(models.Model):
     end_date = models.DateTimeField("End date")
     # in_charge_person = models.ForeignKey()
     date_created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.client}"
