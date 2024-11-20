@@ -10,49 +10,8 @@ x = datetime.datetime.now()
 from .forms import RegisterForm
 
 @login_required(login_url='/login_user/')
-def report(request):    
-        return render(request, "report.html")
-
-@login_required(login_url='/login_user/')
-def genba_list(request):    
-        return render(request, "genba_list.html")
-
-@login_required(login_url='/login_user/')
-def genba_details(request):    
-        return render(request, "genba_details.html")
-
-@login_required(login_url='/login_user/')
-def user_list(request):    
-        return render(request, "user_list.html")
-
-@login_required(login_url='/login_user/')
-def report_list(request):    
-        return render(request, "report_list.html")
-
-@login_required(login_url='/login_user/')
 def home(request):
         return render(request, "home.html")
-
-@login_required(login_url='/login_user/')
-def schedule(request):
-    year = int(x.year)
-    month = int(x.month)
-    cal = calendar.HTMLCalendar().formatmonth(year, month)
-    cal = cal.replace('<td ', '<td width="150" height="150" hover')
-    cal = mark_safe(cal)
-    if request.user.is_authenticated:
-         context = {
-            "year": year,
-            "month": month,
-            "cal": cal,
-        }
-         return render(request, "schedule.html", context=context)
-    else:
-        return redirect('login_user')
-
-@login_required(login_url='/login/')
-def schedule_details(request):
-    return render(request, "schedule_details.html")
 
 def login_user(request):
     if request.method == "POST":
@@ -66,8 +25,7 @@ def login_user(request):
             messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
             return redirect("login_user")
     else:
-        return render(request, "authenticate/login.html", {})
-    
+        return render(request, "authenticate/login.html", {})   
 
 @login_required(login_url='/login_user/')
 def logout_user(request):
@@ -93,8 +51,33 @@ def add_user(request):
         return render(request, "add_user.html", {"form": form})
     else:
         return redirect("login_user")
-
     
+
+@login_required(login_url='/login_user/')
+def user_list(request):    
+        return render(request, "user_list.html")
+
+@login_required(login_url='/login_user/')
+def schedule(request):
+    year = int(x.year)
+    month = int(x.month)
+    cal = calendar.HTMLCalendar().formatmonth(year, month)
+    cal = cal.replace('<td ', '<td width="150" height="150" hover')
+    cal = mark_safe(cal)
+    if request.user.is_authenticated:
+         context = {
+            "year": year,
+            "month": month,
+            "cal": cal,
+        }
+         return render(request, "schedule.html", context=context)
+    else:
+        return redirect('login_user')
+
+@login_required(login_url='/login/')
+def schedule_details(request):
+    return render(request, "schedule_details.html")
+
 def add_genba(request):
      if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -111,4 +94,25 @@ def add_genba(request):
 
      return render(request, "add_genba.html", {"form": form})
     
-        
+@login_required(login_url='/login_user/')
+def genba_list(request):    
+        return render(request, "genba_list.html")
+
+@login_required(login_url='/login_user/')
+def genba_details(request):    
+        return render(request, "genba_details.html")
+
+@login_required(login_url='/login_user/')
+def add_report(request):    
+        return render(request, "report.html")
+
+@login_required(login_url='/login_user/')
+def report_list(request):    
+        return render(request, "report_list.html")
+
+@login_required(login_url='/login_user/')
+def report_details(request):    
+        return render(request, "report_details.html")
+
+
+    
