@@ -104,7 +104,7 @@ def genba_details(request):
 
 @login_required(login_url='/login_user/')
 def add_report(request):    
-        return render(request, "report.html")
+        return render(request, "add_report.html")
 
 @login_required(login_url='/login_user/')
 def report_list(request):    
