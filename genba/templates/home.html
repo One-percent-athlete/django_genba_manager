@@ -10,14 +10,13 @@
             <h1 class="text-4xl pt-10 pb-5">連絡事項</h1>
         </div>
         <form>
-            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                message</label>
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">連絡事項</label>
             <textarea id="message" rows="4"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Write your thoughts here..."></textarea>
+                placeholder="連絡事項"></textarea>
             <button type="submit"
                 class="inline-flex items-center px-5 py-2.5 mt-5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                Publish post
+                追加
             </button>
         </form>
         <ul class="mt-5 space-y-1 text-gray-500 list-disc list-inside mb-2 text-lg font-semibold">
@@ -85,7 +84,7 @@
                         取引先が時間に厳しいので要注意
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
                 <tr class="border-b">
@@ -111,7 +110,7 @@
                         取引先が時間に厳しいので要注意
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
                 <tr class="border-b">
@@ -137,7 +136,7 @@
                         取引先が時間に厳しいので要注意
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
                 <tr class="border-b">
@@ -163,7 +162,7 @@
                         取引先が時間に厳しいので要注意
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
                 <tr class="border-b">
@@ -189,7 +188,7 @@
                         取引先が時間に厳しいので要注意
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
             </tbody>
