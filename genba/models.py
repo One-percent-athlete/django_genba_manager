@@ -14,13 +14,26 @@ class CustomAdminUser(BaseUserManager):
         user.save()
         return user
     
+    
+    def create_syain_user(self, username, fullname, phone_number, password, note):
+        user = self.create_user(
+            username=username,
+            fullname=fullname,
+            phone_number=phone_number,
+            note=note
+        )
+        user.is_staff = True
+        user.set_password(password)
+        user.save()
+        return user
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
     fullname = models.CharField(max_length=20, unique=True)
     phone_number = models.CharField(max_length=20)
     note = models.CharField(max_length=500)
-    is_staff = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
