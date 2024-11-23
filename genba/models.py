@@ -8,6 +8,7 @@ class CustomUserManager(BaseUserManager):
             username=username,
             fullname=fullname,
             phone_number=phone_number,
+            password=password,
             note=note
         )
         user.set_password(password)
@@ -19,6 +20,7 @@ class CustomUserManager(BaseUserManager):
             username=username,
             fullname=fullname,
             phone_number=phone_number,
+            password=password,
             note=note
         )
         user.is_staff = True
@@ -26,7 +28,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
     
-    def create_super_user(self, username, fullname, phone_number, password, note):
+    def create_superuser(self, username, fullname, phone_number, password, note):
         user = self.create_user(
             username=username,
             fullname=fullname,
@@ -54,7 +56,7 @@ class CustomUser(AbstractBaseUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["fullname", "phone_number"]
+    REQUIRED_FIELDS = ["fullname", "phone_number", "note"]
 
     def __str__(self):
         return f"{self.username} - {self.fullname} - {self.phone_number}"
