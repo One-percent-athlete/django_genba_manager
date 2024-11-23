@@ -9,13 +9,19 @@
     <form class="container">
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">お名前(フルネーム)</label>
-                <input type="text" id="first_name"
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900">ユーザー名</label>
+                <input type="text" id="username"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="大谷翔平" required />
             </div>
             <div>
-                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">雇用形態</label>
+                <label for="fullname" class="block mb-2 text-sm font-medium text-gray-900">お名前(フルネームスペースなし)</label>
+                <input type="text" id="fullname"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="大谷翔平" required />
+            </div>
+            <div>
+                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">登録形態</label>
                 <input type="text" id="last_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="フェルナンド、齋藤" required />
@@ -28,8 +34,8 @@
             </div>
         </div>
         <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">備考</label>
-            <input type="email" id="email"
+            <label for="note" class="block mb-2 text-sm font-medium text-gray-900">備考</label>
+            <input type="note" id="note"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="通勤遠いので現場要考慮" />
         </div>
