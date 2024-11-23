@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
-class CustomAdminUser(BaseUserManager):
+class CustomUserManager(BaseUserManager):
 
     def create_user(self, username, fullname, phone_number, password, note):
         user = self.model(
@@ -49,6 +49,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = CustomUserManager()
 
     REQUIRED_FIELDS = ["fullname", "phone_number"]
 
