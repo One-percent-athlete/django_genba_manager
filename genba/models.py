@@ -14,7 +14,6 @@ class CustomAdminUser(BaseUserManager):
         user.save()
         return user
     
-    
     def create_syain_user(self, username, fullname, phone_number, password, note):
         user = self.create_user(
             username=username,
@@ -23,6 +22,19 @@ class CustomAdminUser(BaseUserManager):
             note=note
         )
         user.is_staff = True
+        user.set_password(password)
+        user.save()
+        return user
+    
+    def create_super_user(self, username, fullname, phone_number, password, note):
+        user = self.create_user(
+            username=username,
+            fullname=fullname,
+            phone_number=phone_number,
+            note=note
+        )
+        user.is_staff = True
+        user.is_superuser = True
         user.set_password(password)
         user.save()
         return user
