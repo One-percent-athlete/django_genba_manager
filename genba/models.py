@@ -16,7 +16,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user} - {self.fullname} - {self.phone_number}"
+        return f"{self.user} - {self.fullname} - {self.phone}"
     
 
 def create_profile(sender, instance, created, **kwargs):
