@@ -1,5 +1,5 @@
 from django.contrib import admin
-# from .models import Genba
+from .models import Profile
 
 # Register your models here.
-# admin.site.register(Genba)
+admin.site.register(Profile)
