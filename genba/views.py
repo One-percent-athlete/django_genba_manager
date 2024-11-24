@@ -11,35 +11,35 @@ x = datetime.datetime.now()
 
 from .forms import SignUpForm, UpdateUserForm, UserProfileForm
 
-def update_user(request, user_id):
-    if request.user.is_authenticated:
-        current_user = User.objects.get(id=user_id)
-        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+# def update_user(request, user_id):
+#     if request.user.is_authenticated:
+#         current_user = User.objects.get(id=user_id)
+#         user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
-        if user_form.is_valid():
-            user_form.save()
-            login(request, current_user)
-            messages.success(request, "Your Profile Has Been Updated Successfully.")
-            return redirect("update_user", user_id)
-        return render(request, "update_user.html", {"user_form": user_form})
-    else:
-        messages.success(request, "You Must Login First!")
-        return redirect("home")
+#         if user_form.is_valid():
+#             user_form.save()
+#             login(request, current_user)
+#             messages.success(request, "Your Profile Has Been Updated Successfully.")
+#             return redirect("update_user", user_id)
+#         return render(request, "update_user.html", {"user_form": user_form})
+#     else:
+#         messages.success(request, "You Must Login First!")
+#         return redirect("home")
     
-def update_profile(request, user_id):
-    if request.user.is_authenticated:
+# def update_profile(request, user_id):
+#     if request.user.is_authenticated:
 
-        current_user = Profile.objects.get(user__id=user_id)
-        form = UserProfileForm(request.POST or None, instance=current_user)
-        if form.is_valid():
+#         current_user = Profile.objects.get(user__id=user_id)
+#         form = UserProfileForm(request.POST or None, instance=current_user)
+#         if form.is_valid():
 
-            form.save()
-            messages.success(request, "Your Profile Has Been Updated Successfully.")
-            return redirect("update_user", user_id)
-        return render(request, "update_profile.html", {"form": form})
-    else:
-        messages.success(request, "You Must Login First!")
-        return redirect("home")
+#             form.save()
+#             messages.success(request, "Your Profile Has Been Updated Successfully.")
+#             return redirect("update_user", user_id)
+#         return render(request, "update_profile.html", {"form": form})
+#     else:
+#         messages.success(request, "You Must Login First!")
+#         return redirect("home")
 
 
 def add_user(request):
