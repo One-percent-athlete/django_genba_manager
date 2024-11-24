@@ -132,6 +132,7 @@ def schedule(request):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
+@login_required
 def add_genba(request):
      if request.method == "POST":
         form = RegisterForm(request.POST)
