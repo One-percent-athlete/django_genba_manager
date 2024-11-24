@@ -9,7 +9,7 @@ import calendar
 import datetime
 x = datetime.datetime.now()
 
-from .forms import RegisterForm, SignUpForm, UpdateUserForm, UserProfileForm
+from .forms import SignUpForm, UpdateUserForm, UserProfileForm
 
 def update_user(request, user_id):
     if request.user.is_authenticated:

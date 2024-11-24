@@ -49,34 +49,14 @@ class UpdateUserForm(UserChangeForm):
 			self.fields['username'].label = ''
 			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
-class ChangePasswordForm(SetPasswordForm):
-	class Meta:
-		model = User
-		fields = ['new_password1', 'new_password2']
-
-	def __init__(self, *args, **kwargs):
-		super(ChangePasswordForm, self).__init__(*args, **kwargs)
-
-		self.fields['new_password1'].widget.attrs['class'] = 'form-control'
-		self.fields['new_password1'].widget.attrs['placeholder'] = 'Enter New Password'
-		self.fields['new_password1'].label = ''
-		self.fields['new_password1'].help_text = '<ul class="form-text text-muted small"><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul>'
-
-		self.fields['new_password2'].widget.attrs['class'] = 'form-control'
-		self.fields['new_password2'].widget.attrs['placeholder'] = 'Confirm New Password'
-		self.fields['new_password2'].label = ''
-		self.fields['new_password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password.</small></span>'
-
-
 class UserProfileForm(forms.ModelForm):
+	fullname = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}), required=False)
 	phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}), required=False)
-	address1 = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Address 1'}), required=False)
-	address2 = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Address 2'}), required=False)
-	city = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'City'}), required=False)
-	state = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'State'}), required=False)
-	zipcode = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Zipcode'}), required=False)
-	country = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Country'}), required=False)
+	note = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}), required=False)
+	is_staff = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Staff'}), required=False)
+	is_superuser = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Admin'}), required=False)
 
 	class Meta:
 		model = User
-		fields = ('phone', 'address1', 'address2', 'city', 'state', 'zipcode', 'country')
+		fields = ('fullname', 'phone', 'note', 'is_staff', 'is_superuser')
+		
