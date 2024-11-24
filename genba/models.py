@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fullname = models.CharField(max_length=20, unique=True, blank=True)
+    fullname = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     note = models.CharField(max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
