@@ -11,21 +11,6 @@ import datetime
 x = datetime.datetime.now()
 
 from .forms import SignUpForm, UpdateUserForm, UserProfileForm
-
-# def update_user(request, user_id):
-#     if request.user.is_authenticated:
-#         current_user = User.objects.get(id=user_id)
-#         user_form = UpdateUserForm(request.POST or None, instance=current_user)
-
-#         if user_form.is_valid():
-#             user_form.save()
-#             login(request, current_user)
-#             messages.success(request, "Your Profile Has Been Updated Successfully.")
-#             return redirect("update_user", user_id)
-#         return render(request, "update_user.html", {"user_form": user_form})
-#     else:
-#         messages.success(request, "You Must Login First!")
-#         return redirect("home")
     
 def update_profile(request, user_id):
     if request.user.is_authenticated:
@@ -40,7 +25,17 @@ def update_profile(request, user_id):
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
+    
+def delete_user(request, user_id):
+    if request.user.is_authenticated:
 
+        current_user = Profile.objects.get(user__id=user_id)
+        current_user.delete()
+        messages.success(request, "Your Profile Has Been Deleted Successfully.")
+        return redirect("user_list")
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("home")
 
 def add_user(request):
     form = SignUpForm()
@@ -63,21 +58,7 @@ def add_user(request):
         return render(request, "add_user.html", {
             "form": form
         })
-    
-# def update_user(request, user_id):
-#     if request.user.is_authenticated:
-#         current_user = User.objects.get(id=user_id)
-#         user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
-#         if user_form.is_valid():
-#             user_form.save()
-#             login(request, current_user)
-#             messages.success(request, "Your Profile Has Been Updated Successfully.")
-#             return redirect("update_user", user_id)
-#         return render(request, "update_user.html", {"user_form": user_form})
-#     else:
-#         messages.success(request, "You Must Login First!")
-#         return redirect("home")
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -104,25 +85,6 @@ def logout_user(request):
     messages.success(request, ("You Are Logged Out"))
     return redirect("login_user")
 
-# def add_user(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            form = RegisterForm(request.POST)
-            if form.is_valid():
-                form.save()
-                username = form.cleaned_data["username"]
-                password = form.cleaned_data["password1"]
-                user = authenticate(username=username, password=password)
-                login(request, user)
-                messages.success(request, ("Registration Successful!!"))
-                return redirect("login_user")
-        else:
-            form = RegisterForm()
-
-        return render(request, "add_user.html", {"form": form})
-    else:
-        return redirect("login_user")
-    
 
 @login_required(login_url='/login_user/')
 def user_list(request):
