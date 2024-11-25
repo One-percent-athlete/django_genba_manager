@@ -8,11 +8,13 @@ urlpatterns = [
     path('report_list/', views.report_list, name="report_list"),
     path('report_details/', views.report_details, name="report_details"),
     path('add_report/', views.add_report, name="add_report"),
-    # path('add_genba', views.add_genba, name="add_genba"),
+    path('add_genba', views.add_genba, name="add_genba"),
     path('genba_list/', views.genba_list, name="genba_list"),
     path('genba_details/', views.genba_details, name="genba_details"),
     path('user_list/', views.user_list, name="user_list"),
     path('login_user/', views.login_user, name="login_user"),
     path('logout_user/', views.logout_user, name="logout_user"),
     path('add_user/', views.add_user, name="add_user"),
+    path('update_user/<int:user_id>', views.update_user, name="update_user"),
+
 ]

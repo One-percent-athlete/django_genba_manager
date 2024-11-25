@@ -53,7 +53,7 @@ def add_user(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("Welcome, please Fill Out Your Profile."))
+            messages.success(request, ("Welcome, Please Fill Out Your Profile."))
             return redirect("update_profile", user.pk)
         else:
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
@@ -62,6 +62,21 @@ def add_user(request):
         return render(request, "add_user.html", {
             "form": form
         })
+    
+def update_user(request, user_id):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=user_id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            messages.success(request, "Your Profile Has Been Updated Successfully.")
+            return redirect("update_user", user_id)
+        return render(request, "update_user.html", {"user_form": user_form})
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("home")
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -133,22 +148,22 @@ def schedule(request):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-# @login_required
-# def add_genba(request):
-#      if request.method == "POST":
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data["username"]
-#             password = form.cleaned_data["password1"]
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             messages.success(request, ("Registration Successful!!"))
-#             return redirect("login_user")
-#      else:
-#         form = RegisterForm()
+@login_required
+def add_genba(request):
+     if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("Registration Successful!!"))
+            return redirect("login_user")
+     else:
+        form = RegisterForm()
 
-#      return render(request, "add_genba.html", {"form": form})
+     return render(request, "add_genba.html", {"form": form})
     
 @login_required(login_url='/login_user/')
 def genba_list(request):    
