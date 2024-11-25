@@ -28,7 +28,6 @@ def update_profile(request, user_id):
     
 def delete_user(request, user_id):
     if request.user.is_authenticated:
-
         current_user = Profile.objects.get(user__id=user_id)
         current_user.delete()
         messages.success(request, "Your Profile Has Been Deleted Successfully.")
