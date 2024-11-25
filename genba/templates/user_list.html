@@ -53,10 +53,13 @@
                         {{ profile.first_name }} {{ profile.last_name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ profile.email }}
+                        Staff: {{ profile.is_staff }} Superuser: {{ profile.is_superuser }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ profile.phone }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ profile.note }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
