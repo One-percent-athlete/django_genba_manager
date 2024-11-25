@@ -31,7 +31,7 @@ def update_profile(request, user_id):
     if request.user.is_authenticated:
 
         current_user = Profile.objects.get(user__id=user_id)
-        form = UserProfileForm(request.POST or None, instance=current_user)
+        form = UpdateUserForm(request.POST or None, instance=current_user)
         if form.is_valid():
 
             form.save()
@@ -40,7 +40,7 @@ def update_profile(request, user_id):
         return render(request, "update_profile.html", {"form": form})
     else:
         messages.success(request, "You Must Login First!")
-        return redirect("home")
+        return redirect("user_list")
 
 
 def add_user(request):

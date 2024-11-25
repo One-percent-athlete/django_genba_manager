@@ -10,9 +10,9 @@
         <br><br>
         <form method="POST" action="{% url 'update_profile' user.id %}">
             {% csrf_token %}
-            {{ user_form.as_p }}
+            {{ form.as_p }}
             <button type="submit" class="btn btn-outline-dark">Update</button>
-            <a class="btn btn-secondary my-2" href="{% url 'update_profile' user.id %}">Edit Profile</a>
+            <button class="btn btn-outline-dark">Delete</button>
         </form>
     </div>
     <!-- <div class="grid gap-6 mb-6 md:grid-cols-2">
