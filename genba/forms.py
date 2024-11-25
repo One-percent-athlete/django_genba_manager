@@ -33,13 +33,17 @@ class SignUpForm(UserCreationForm):
 
 class UpdateUserForm(UserChangeForm):
 		password = None
-		email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
 		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
 		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
+		email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
+		note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
+		is_staff = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+		is_superuser = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
 
 		class Meta:
 			model = User
-			fields = ('username', 'first_name', 'last_name', 'email')
+			fields = ('username', 'first_name', 'last_name', )
 
 		def __init__(self, *args, **kwargs):
 			super(UpdateUserForm, self).__init__(*args, **kwargs)

@@ -15,6 +15,12 @@
                 class="text-normal text-gray-700 uppercase bg-gray-50 whitespace-nowrap dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        ユーザーID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        ユーザー名
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         名前
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -32,106 +38,32 @@
                 </tr>
             </thead>
             <tbody>
+                {% for profile in profiles %}
+
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="#">
-                            鈴木　隆
+                            {{ profile.id }}
                         </a>
                     </th>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        正社員
+                        {{ profile.user }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        08091976538
+                        {{ profile.first_name }} {{ profile.last_name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        通勤一時間
+                        {{ profile.email }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ profile.phone }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
                         <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
                     </td>
                 </tr>
-                <tr class="border-b">
-                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
-                            鈴木　隆
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        正社員
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        08091976538
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        通勤一時間
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
-                            鈴木　隆
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        正社員
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        08091976538
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        通勤一時間
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
-                            鈴木　隆
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        正社員
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        08091976538
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        通勤一時間
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
-                            鈴木　隆
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        正社員
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        08091976538
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        通勤一時間
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
-                    </td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -164,9 +96,7 @@
             <tbody>
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="{% url 'update_user' user.id %}">
-                            鈴木　隆
-                        </a>
+                        鈴木　隆
                     </th>
                     <td class="px-6 py-4 whitespace-nowrap">
                         正社員

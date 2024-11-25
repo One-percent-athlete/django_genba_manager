@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import Profile
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import calendar
@@ -54,7 +55,8 @@ def add_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ("Welcome, Please Fill Out Your Profile."))
-            return redirect("update_profile", user.pk)
+            # return redirect("update_profile", user.pk)
+            return redirect("home")
         else:
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
             return redirect("login_user")
@@ -63,20 +65,20 @@ def add_user(request):
             "form": form
         })
     
-def update_user(request, user_id):
-    if request.user.is_authenticated:
-        current_user = User.objects.get(id=user_id)
-        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+# def update_user(request, user_id):
+#     if request.user.is_authenticated:
+#         current_user = User.objects.get(id=user_id)
+#         user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
-        if user_form.is_valid():
-            user_form.save()
-            login(request, current_user)
-            messages.success(request, "Your Profile Has Been Updated Successfully.")
-            return redirect("update_user", user_id)
-        return render(request, "update_user.html", {"user_form": user_form})
-    else:
-        messages.success(request, "You Must Login First!")
-        return redirect("home")
+#         if user_form.is_valid():
+#             user_form.save()
+#             login(request, current_user)
+#             messages.success(request, "Your Profile Has Been Updated Successfully.")
+#             return redirect("update_user", user_id)
+#         return render(request, "update_user.html", {"user_form": user_form})
+#     else:
+#         messages.success(request, "You Must Login First!")
+#         return redirect("home")
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -124,8 +126,9 @@ def logout_user(request):
     
 
 @login_required(login_url='/login_user/')
-def user_list(request):    
-        return render(request, "user_list.html")
+def user_list(request):
+    profiles = Profile.objects.all()
+    return render(request, "user_list.html", { "profiles": profiles })
 
 @login_required(login_url='/login_user/')
 def schedule(request):
