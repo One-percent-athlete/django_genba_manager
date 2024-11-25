@@ -32,8 +32,8 @@ def update_profile(request, user_id):
 
         current_user = Profile.objects.get(user__id=user_id)
         form = UpdateUserForm(request.POST or None, instance=current_user)
+        print(current_user.note)
         if form.is_valid():
-
             form.save()
             messages.success(request, "Your Profile Has Been Updated Successfully.")
             return redirect("update_profile", user_id)
