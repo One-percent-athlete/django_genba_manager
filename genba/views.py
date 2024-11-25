@@ -35,11 +35,11 @@ def update_profile(request, user_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Your Profile Has Been Updated Successfully.")
-            return redirect("update_profile", user_id)
+            return redirect("user_list")
         return render(request, "update_profile.html", {"form": form})
     else:
         messages.success(request, "You Must Login First!")
-        return redirect("user_list")
+        return redirect("login")
 
 
 def add_user(request):
