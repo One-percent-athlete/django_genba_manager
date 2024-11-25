@@ -54,13 +54,15 @@ class UpdateUserForm(UserChangeForm):
 			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 class UserProfileForm(forms.ModelForm):
-	fullname = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}), required=False)
-	phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}), required=False)
-	note = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}), required=False)
-	is_staff = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Staff'}), required=False)
-	is_superuser = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Admin'}), required=False)
+	first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
+	last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
+	email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
+	note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
+	is_staff = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+	is_superuser = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
 
 	class Meta:
 		model = User
-		fields = ('fullname', 'phone', 'note', 'is_staff', 'is_superuser')
+		fields = ('username', 'first_name', 'last_name')
 		

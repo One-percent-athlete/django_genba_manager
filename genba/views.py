@@ -27,20 +27,20 @@ from .forms import SignUpForm, UpdateUserForm, UserProfileForm
 #         messages.success(request, "You Must Login First!")
 #         return redirect("home")
     
-# def update_profile(request, user_id):
-#     if request.user.is_authenticated:
+def update_profile(request, user_id):
+    if request.user.is_authenticated:
 
-#         current_user = Profile.objects.get(user__id=user_id)
-#         form = UserProfileForm(request.POST or None, instance=current_user)
-#         if form.is_valid():
+        current_user = Profile.objects.get(user__id=user_id)
+        form = UserProfileForm(request.POST or None, instance=current_user)
+        if form.is_valid():
 
-#             form.save()
-#             messages.success(request, "Your Profile Has Been Updated Successfully.")
-#             return redirect("update_user", user_id)
-#         return render(request, "update_profile.html", {"form": form})
-#     else:
-#         messages.success(request, "You Must Login First!")
-#         return redirect("home")
+            form.save()
+            messages.success(request, "Your Profile Has Been Updated Successfully.")
+            return redirect("update_profile", user_id)
+        return render(request, "update_profile.html", {"form": form})
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("home")
 
 
 def add_user(request):
@@ -55,8 +55,8 @@ def add_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ("Welcome, Please Fill Out Your Profile."))
-            # return redirect("update_profile", user.pk)
-            return redirect("home")
+            return redirect("update_profile", user.pk)
+            # return redirect("home")
         else:
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
             return redirect("login_user")

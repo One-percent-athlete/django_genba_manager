@@ -8,7 +8,7 @@
     <h1 class="text-4xl py-10">新規作業員登録</h1>
     <div class="col-md-6 offset-md-3">
         <br><br>
-        <form method="POST" action="{% url 'update_user' user.id %}">
+        <form method="POST" action="{% url 'update_profile' user.id %}">
             {% csrf_token %}
             {{ user_form.as_p }}
             <button type="submit" class="btn btn-outline-dark">Update</button>
