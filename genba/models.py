@@ -10,7 +10,6 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     email = models.EmailField(max_length=20, blank=True)
-    password = models.CharField(max_length=20, blank=True)
     note = models.CharField(max_length=500, blank=True)
     is_temp = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
@@ -20,7 +19,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user} - {self.phone}"
+        return f"{self.user} - {self.first_name} - {self.last_name}"
     
 
 def create_profile(sender, instance, created, **kwargs):
