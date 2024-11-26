@@ -5,13 +5,16 @@ from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
+    CONTRACT_TYPES = (
+        ('temp', '元請'),
+        ('full_time', '正社員'),
+        ('admin', '管理'),
+    )
+    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     note = models.CharField(max_length=500, blank=True)
-    is_temp = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
