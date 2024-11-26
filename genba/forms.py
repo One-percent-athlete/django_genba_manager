@@ -35,16 +35,20 @@ class UpdateUserForm(UserChangeForm):
 		password = None
 		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}))
 		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}))
-		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
-		email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
-		note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
-		is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-		is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-		is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
+		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))		
 
 		class Meta:
 			model = User
-			fields = ('first_name', 'last_name', 'phone', 'note', 'email', 'is_temp', 'is_staff', 'is_superuser')
+			fields = ('username', 'first_name', 'last_name', 'phone')
+
+		def __init__(self, *args, **kwargs):
+			super(UpdateUserForm, self).__init__(*args, **kwargs)
+
+			self.fields['username'].widget.attrs['class'] = 'form-control'
+			self.fields['username'].widget.attrs['placeholder'] = 'Username'
+			self.fields['username'].label = ''
+			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+
 
 # class UserProfileForm(forms.ModelForm):
 # 	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
