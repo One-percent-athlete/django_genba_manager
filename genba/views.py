@@ -96,7 +96,8 @@ def delete_user(request, user_id):
 @login_required(login_url='/login_user/')
 def user_list(request):
     profiles = Profile.objects.all()
-    return render(request, "user_list.html", { "profiles": profiles })
+    contract = request.user.profile.contract_type
+    return render(request, "user_list.html", { "profiles": profiles, "contract": contract })
 
 @login_required(login_url='/login_user/')
 def schedule(request):
