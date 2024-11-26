@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 import calendar
 import datetime
 x = datetime.datetime.now()
-from .forms import SignUpForm, UpdateUserForm, UserProfileForm
+from .forms import SignUpForm, UserProfileForm
 
 @login_required(login_url='/login_user/')
 def home(request):
