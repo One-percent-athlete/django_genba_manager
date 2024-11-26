@@ -33,28 +33,26 @@ class SignUpForm(UserCreationForm):
 
 class UpdateUserForm(UserChangeForm):
 		password = None
-		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
 		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
 		email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
 		note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
-		is_staff = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-		is_superuser = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
+		is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+		is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+		is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
 
 		class Meta:
 			model = User
-			fields = ('first_name', 'last_name', 'phone', 'note', 'email', 'is_staff', 'is_superuser')
+			fields = ('phone', 'note', 'email', 'is_temp', 'is_staff', 'is_superuser')
 
-class UserProfileForm(forms.ModelForm):
-	first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-	last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
-	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
-	email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
-	note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
-	is_staff = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-	is_superuser = forms.BooleanField(label="", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
+# class UserProfileForm(forms.ModelForm):
+# 	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
+# 	email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
+# 	note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
+# 	is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+# 	is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+# 	is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
 
-	class Meta:
-		model = User
-		fields = ('username', 'first_name', 'last_name')
+# 	class Meta:
+# 		model = User
+# 		fields = ('username', 'first_name', 'last_name')
 		

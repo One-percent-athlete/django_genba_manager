@@ -10,8 +10,7 @@ import calendar
 import datetime
 x = datetime.datetime.now()
 
-from .forms import SignUpForm, UpdateUserForm, UserProfileForm
-    
+from .forms import SignUpForm, UpdateUserForm
 def update_profile(request, user_id):
     if request.user.is_authenticated:
 
@@ -29,7 +28,8 @@ def update_profile(request, user_id):
 def delete_user(request, user_id):
     if request.user.is_authenticated:
         current_user = Profile.objects.get(user__id=user_id)
-        current_user.delete()
+        current_user.is_active=False
+        current_user.save()
         messages.success(request, "Your Profile Has Been Deleted Successfully.")
         return redirect("user_list")
     else:

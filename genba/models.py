@@ -12,6 +12,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=20, blank=True)
     password = models.CharField(max_length=20, blank=True)
     note = models.CharField(max_length=500, blank=True)
+    is_temp = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
