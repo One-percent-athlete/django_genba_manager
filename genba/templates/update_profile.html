@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}
-新規作業員登録
+作業員情報登録更新
 {% endblock %}
 
 {% block content %}
 <div class="p-4 sm:ml-64">
-    <h1 class="text-4xl py-10">作業員情報登録</h1>
+    <h1 class="text-4xl py-10">作業員情報登録更新</h1>
     <div class="col-md-6 offset-md-3">
         <br><br>
         <form method="POST" action="{% url 'update_profile' user.id %}">

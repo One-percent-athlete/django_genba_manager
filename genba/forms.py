@@ -6,12 +6,12 @@ from .models import Profile
 class SignUpForm(UserCreationForm):
 	# Can be left blank here because the admin section does not require them
 	# email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
-	first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-	last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+	# first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
+	# last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
 
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name', 'password1', 'password2')
+		fields = ('username', 'password1', 'password2')
 
 	def __init__(self, *args, **kwargs):
 		super(SignUpForm, self).__init__(*args, **kwargs)
@@ -33,8 +33,8 @@ class SignUpForm(UserCreationForm):
 
 class UpdateUserForm(UserChangeForm):
 		password = None
-		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}))
-		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}))
+		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}), required=False)
+		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}), required=False)
 		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))		
 
 		class Meta:
@@ -50,15 +50,16 @@ class UpdateUserForm(UserChangeForm):
 			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 
-# class UserProfileForm(forms.ModelForm):
-# 	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
-# 	email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
-# 	note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
-# 	is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-# 	is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-# 	is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
+    
+class UserProfileForm(forms.ModelForm):
+	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Fullname'}))
+	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
+	note = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
+	is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+	is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
+	is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
 
-# 	class Meta:
-# 		model = User
-# 		fields = ('username', 'first_name', 'last_name')
+	class Meta:
+		model = Profile
+		fields = ('fullname', 'phone', 'note', 'is_temp', 'is_staff','is_superuser')
 		

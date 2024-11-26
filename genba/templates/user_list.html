@@ -50,7 +50,7 @@
                         {{ profile.user }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ profile.first_name }} {{ profile.last_name }}
+                        {{ profile.fullname }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         Staff: {{ profile.is_staff }} Superuser: {{ profile.is_superuser }}
@@ -110,7 +110,7 @@
                 {% if profile.is_active == False %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
+                        <a href="">
                             {{ profile.id }}
                         </a>
                     </th>
@@ -118,7 +118,7 @@
                         {{ profile.user }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ profile.first_name }} {{ profile.last_name }}
+                        {{ profile.fullname }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         Staff: {{ profile.is_staff }} Superuser: {{ profile.is_superuser }}

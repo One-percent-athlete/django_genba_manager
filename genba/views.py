@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 import calendar
 import datetime
 x = datetime.datetime.now()
-from .forms import SignUpForm, UpdateUserForm, UserChangeForm
+from .forms import SignUpForm, UpdateUserForm, UserProfileForm
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -55,28 +55,28 @@ def register_user(request):
             "form": form
         })
     
-def update_user(request):
-    if request.user.is_authenticated:
-        current_user = User.objects.get(id=request.user.id)
-        form = UpdateUserForm(request.POST or None, instance=current_user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Your Infomation Has Been Updated Successfully.")
-            return redirect("user_list")
-        return render(request, "authenticate/update_user.html", {"form": form})
-    else:
-        messages.success(request, "You Must Login First!")
-        return redirect("login")
+# def update_user(request):
+#     if request.user.is_authenticated:
+#         current_user = User.objects.get(id=request.user.id)
+#         form = UpdateUserForm(request.POST or None, instance=current_user)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Your Infomation Has Been Updated Successfully.")
+#             return redirect("user_list")
+#         return render(request, "authenticate/update_user.html", {"form": form})
+#     else:
+#         messages.success(request, "You Must Login First!")
+#         return redirect("login")
 
-def update_profile(request, user_id):
+def update_profile(request, profile_id):
     if request.user.is_authenticated:
-        current_user = Profile.objects.get(user__id=user_id)
-        form = UpdateUserForm(request.POST or None, instance=current_user)
+        user = Profile.objects.get(id=profile_id)
+        form = UserProfileForm(request.POST or None, instance=user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your Profile Has Been Updated Successfully.")
+            messages.success(request, "Profile Has Been Updated Successfully.")
             return redirect("user_list")
-        return render(request, "update_profile.html", {"form": form})
+        return render(request, "update_profile.html", {"form": form , "user": user })
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
