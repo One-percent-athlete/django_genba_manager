@@ -11,9 +11,10 @@ import datetime
 x = datetime.datetime.now()
 
 from .forms import SignUpForm, UpdateUserForm
+
+
 def update_profile(request, user_id):
     if request.user.is_authenticated:
-
         current_user = Profile.objects.get(user__id=user_id)
         form = UpdateUserForm(request.POST or None, instance=current_user)
         if form.is_valid():
@@ -49,7 +50,6 @@ def add_user(request):
             login(request, user)
             messages.success(request, ("Welcome, Please Fill Out Your Profile."))
             return redirect("update_profile", user.pk)
-            # return redirect("home")
         else:
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
             return redirect("login_user")

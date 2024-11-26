@@ -33,6 +33,8 @@ class SignUpForm(UserCreationForm):
 
 class UpdateUserForm(UserChangeForm):
 		password = None
+		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}))
+		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}))
 		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
 		email = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}))
 		note = forms.CharField(label="", max_length=500, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
@@ -42,7 +44,7 @@ class UpdateUserForm(UserChangeForm):
 
 		class Meta:
 			model = User
-			fields = ('phone', 'note', 'email', 'is_temp', 'is_staff', 'is_superuser')
+			fields = ('first_name', 'last_name', 'phone', 'note', 'email', 'is_temp', 'is_staff', 'is_superuser')
 
 # class UserProfileForm(forms.ModelForm):
 # 	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
