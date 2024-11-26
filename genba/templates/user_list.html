@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 {% for profile in profiles %}
-
+                {% if profile.is_active == True %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="#">
@@ -64,9 +64,11 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="{% url 'update_profile' profile.id %}"
                             class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
+                        <a href="{% url 'delete_user' profile.id %}"
+                            class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
@@ -105,7 +107,7 @@
             </thead>
             <tbody>
                 {% for profile in profiles %}
-
+                {% if profile.is_active == False %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="#">
@@ -133,6 +135,7 @@
                         <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
