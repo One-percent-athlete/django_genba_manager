@@ -10,6 +10,50 @@ import datetime
 x = datetime.datetime.now()
 from .forms import SignUpForm, UpdateUserForm
 
+@login_required(login_url='/login_user/')
+def home(request):
+        return render(request, "home.html")
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, ("Welcome back!"))
+            return redirect("home")
+        else:
+            messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
+            return redirect("login_user")
+    else:
+        return render(request, "authenticate/login.html", {})   
+
+@login_required(login_url='/login_user/')
+def logout_user(request):
+    logout(request)
+    messages.success(request, ("You Are Logged Out"))
+    return redirect("login_user")
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("Welcome, Please Fill Out Your Profile."))
+            return redirect("update_profile", user.pk)
+        else:
+            messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
+            return redirect("login_user")
+    else:
+        return render(request, "register_user.html", {
+            "form": form
+        })
 
 def update_profile(request, user_id):
     if request.user.is_authenticated:
@@ -35,50 +79,6 @@ def delete_user(request, user_id):
         messages.success(request, "You Must Login First!")
         return redirect("home")
 
-def add_user(request):
-    form = SignUpForm()
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, ("Welcome, Please Fill Out Your Profile."))
-            return redirect("update_profile", user.pk)
-        else:
-            messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
-            return redirect("login_user")
-    else:
-        return render(request, "add_user.html", {
-            "form": form
-        })
-
-@login_required(login_url='/login_user/')
-def home(request):
-        return render(request, "home.html")
-
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, ("Welcome back!"))
-            return redirect("home")
-        else:
-            messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
-            return redirect("login_user")
-    else:
-        return render(request, "authenticate/login.html", {})   
-
-@login_required(login_url='/login_user/')
-def logout_user(request):
-    logout(request)
-    messages.success(request, ("You Are Logged Out"))
-    return redirect("login_user")
 
 @login_required(login_url='/login_user/')
 def user_list(request):

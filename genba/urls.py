@@ -3,6 +3,9 @@ from genba import views
 
 urlpatterns = [
     path('', views.home, name="home"),
+    path('login_user/', views.login_user, name="login_user"),
+    path('logout_user/', views.logout_user, name="logout_user"),
+    path('register_user/', views.register_user, name="register_user"),
     path('schedule/', views.schedule, name="schedule"),
     path('schedule_details/', views.schedule_details, name="schedule_details"),
     path('report_list/', views.report_list, name="report_list"),
@@ -12,9 +15,6 @@ urlpatterns = [
     path('genba_list/', views.genba_list, name="genba_list"),
     path('genba_details/', views.genba_details, name="genba_details"),
     path('user_list/', views.user_list, name="user_list"),
-    path('login_user/', views.login_user, name="login_user"),
-    path('logout_user/', views.logout_user, name="logout_user"),
-    path('add_user/', views.add_user, name="add_user"),
     path('delete_user/<int:user_id>/', views.delete_user, name="delete_user"),
     path('update_profile/<int:user_id>/', views.update_profile, name="update_profile"),
 ]
