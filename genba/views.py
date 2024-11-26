@@ -51,9 +51,12 @@ def register_user(request):
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
             return redirect("login_user")
     else:
-        return render(request, "register_user.html", {
+        return render(request, "authenticate/register_user.html", {
             "form": form
         })
+    
+def update_user(request):
+    return render(request, 'authenticate/update_user.html', {})
 
 def update_profile(request, user_id):
     if request.user.is_authenticated:
