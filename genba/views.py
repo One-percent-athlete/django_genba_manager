@@ -1,4 +1,3 @@
-from cProfile import Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,7 +8,6 @@ from django.utils.safestring import mark_safe
 import calendar
 import datetime
 x = datetime.datetime.now()
-
 from .forms import SignUpForm, UpdateUserForm
 
 
@@ -39,7 +37,6 @@ def delete_user(request, user_id):
 
 def add_user(request):
     form = SignUpForm()
-
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -57,7 +54,6 @@ def add_user(request):
         return render(request, "add_user.html", {
             "form": form
         })
-
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -83,7 +79,6 @@ def logout_user(request):
     logout(request)
     messages.success(request, ("You Are Logged Out"))
     return redirect("login_user")
-
 
 @login_required(login_url='/login_user/')
 def user_list(request):
