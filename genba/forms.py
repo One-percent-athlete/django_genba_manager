@@ -31,35 +31,37 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before for verification.</small></span>'
 
-class UpdateUserForm(UserChangeForm):
-		password = None
-		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}), required=False)
-		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}), required=False)
-		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))		
+# class UpdateUserForm(UserChangeForm):
+# 		password = None
+# 		first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First name'}), required=False)
+# 		last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last name'}), required=False)
+# 		phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))		
 
-		class Meta:
-			model = User
-			fields = ('username', 'first_name', 'last_name', 'phone')
+# 		class Meta:
+# 			model = User
+# 			fields = ('username', 'first_name', 'last_name', 'phone')
 
-		def __init__(self, *args, **kwargs):
-			super(UpdateUserForm, self).__init__(*args, **kwargs)
+# 		def __init__(self, *args, **kwargs):
+# 			super(UpdateUserForm, self).__init__(*args, **kwargs)
 
-			self.fields['username'].widget.attrs['class'] = 'form-control'
-			self.fields['username'].widget.attrs['placeholder'] = 'Username'
-			self.fields['username'].label = ''
-			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+# 			self.fields['username'].widget.attrs['class'] = 'form-control'
+# 			self.fields['username'].widget.attrs['placeholder'] = 'Username'
+# 			self.fields['username'].label = ''
+# 			self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 
     
 class UserProfileForm(forms.ModelForm):
+	CHOICE = [
+       	('元請', '元請'),
+        ('正社員', '正社員'),
+        ('管理', '管理'),]
 	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Fullname'}))
 	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
 	note = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
-	is_temp = forms.BooleanField(label="Is Temp", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-	is_staff = forms.BooleanField(label="Is Staff", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Staff'}))
-	is_superuser = forms.BooleanField(label="Is Admin", widget=forms.CheckboxInput(attrs={'class':'form-control', 'placeholder':'Superuser'}))
+	contract_type = forms.ChoiceField(label="雇用形態", choices=CHOICE, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 
 	class Meta:
 		model = Profile
-		fields = ('fullname', 'phone', 'note', 'is_temp', 'is_staff','is_superuser')
+		fields = ('fullname', 'phone', 'note', 'contract_type')
 		

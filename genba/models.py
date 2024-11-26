@@ -6,9 +6,9 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     CONTRACT_TYPES = (
-        ('temp', '元請'),
-        ('full_time', '正社員'),
-        ('admin', '管理'),
+        ('元請', '元請'),
+        ('正社員', '正社員'),
+        ('管理', '管理'),
     )
     contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
