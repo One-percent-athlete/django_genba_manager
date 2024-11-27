@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 import calendar
 import datetime
 x = datetime.datetime.now()
-from .forms import SignUpForm, UserProfileForm
+from .forms import SignUpForm, UserProfileForm, GenbaForm
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -94,7 +94,6 @@ def delete_user(request, user_id):
         messages.success(request, "You Must Login First!")
         return redirect("home")
 
-
 @login_required(login_url='/login_user/')
 def user_list(request):
     profiles = Profile.objects.all()
@@ -121,33 +120,45 @@ def schedule(request):
     else:
         return redirect('login_user')
 
+@login_required(login_url='/login_user/')
+def genba_list(request):   
+    genbas = Genba.objects.all()
+    return render(request, "genba_list.html", {"genbas": genbas})
+
+@login_required
+def add_genba(request):
+    form = GenbaForm()
+    if request.method == "POST":
+        form = GenbaForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Genba updated Successful!!"))
+            return redirect("genba_list")
+        else:
+            messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
+            return redirect("genba_list")
+    else:
+        return render(request, "add_genba.html", {
+            "form": form
+        })
+
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-@login_required
-def add_genba(request):
-     if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, ("Registration Successful!!"))
-            return redirect("login_user")
-     else:
-        form = RegisterForm()
-
-     return render(request, "add_genba.html", {"form": form})
-    
 @login_required(login_url='/login_user/')
-def genba_list(request):    
-        return render(request, "genba_list.html")
-
-@login_required(login_url='/login_user/')
-def genba_details(request):    
+def genba_details(request, genba_id):
+        if request.user.is_authenticated:
+            genba = Genba.objects.get(id=genba_id)
+            form = GenbaForm(request.POST or None, instance=genba)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Genba Has Been Updated Successfully.")
+                return redirect("genba_list")
+            return render(request, "genba_details.html", {"form": form , "genba": genba })
+        else:
+            messages.success(request, "You Must Login First!")
+            return redirect("login")
         return render(request, "genba_details.html")
 
 @login_required(login_url='/login_user/')

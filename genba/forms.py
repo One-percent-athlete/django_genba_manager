@@ -43,17 +43,17 @@ class UserProfileForm(forms.ModelForm):
 		fields = ('fullname', 'phone', 'note', 'contract_type', 'is_active')
 
 class GenbaForm(forms.ModelForm):
-	head_person = forms.
-    attendees = 
-    name = 
-    client = 
-    address = 
-    job_description = 
-    note = 
-    start_date = 
-	end_date = 
+	head_person = forms.Select(attrs={"class":"form-select", "placeholder": "現場の長"}),
+	attendees = forms.SelectMultiple(attrs={"class":"form-control", "placeholder": "その他作業員"}),
+	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
+	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
+	address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'場所'}))
+	job_description = forms.CharField(label="", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
+	note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
+    # start_date = forms.DateTimeField
+	# end_date = 
 
 	class Meta:
 		model = Genba
-		fields = ('fullname', 'phone', 'note', 'contract_type', 'is_active')
+		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note')
 		
