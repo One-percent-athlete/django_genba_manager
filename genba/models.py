@@ -37,7 +37,7 @@ class Genba(models.Model):
     client = models.CharField("Client", max_length=255)
     address = models.CharField("Address", max_length=255)
     job_description = models.CharField("Job description", max_length=255, blank=True, null=True)
-    note = models.CharField("Remarks", max_length=255, blank=True, null=True)
+    note = models.CharField("Note", max_length=255, blank=True, null=True)
     start_date = models.DateTimeField("Start date")
     end_date = models.DateTimeField("End date")
     is_active = models.BooleanField(default=True)
@@ -53,3 +53,26 @@ class Notification(models.Model):
     
     def __str__(self):
         return f"{self.content} - {self.author} - {self.created_at}"
+
+class Daily_report(models.Model):
+    PAYMENT_TYPES = (
+        ('現金','現金'),
+        ('カード', 'カード'),
+        ('電子マネー', '電子マネー'),
+    )
+    genba = models.ForeignKey(Genba, related_name="genba", on_delete=models.CASCADE)
+    distance = models.CharField(max_length=10)
+    highway_start = models.CharField(max_length=100, blank=True)
+    highway_end = models.CharField(max_length=100, blank=True)
+    hightway_payment = models.CharField(max_length=50, choices=PAYMENT_TYPES, blank=True)
+    parking = models.CharField(max_length=100, blank=True)
+    paid_by = models.ForeignKey(Profile, related_name="paid_by", on_delete=models.CASCADE, null=True, blank=True)
+    hotel = models.BooleanField(default=False)
+    other_payment = models.CharField(max_length=100, blank=True)
+    other_payment_amount = models.CharField(max_length=100, blank=True)
+    daily_details = models.CharField(max_length=500, blank=True)
+    daily_note = models.CharField(max_length=500, blank=True)
+    kentaikyo = models.BooleanField(default=False)
+
+
+
