@@ -147,6 +147,20 @@ def genba_list(request):
     genbas = Genba.objects.all()
     return render(request, "genba_list.html", {"genbas": genbas})
 
+@login_required(login_url='/login_user/')
+def genba_details(request, genba_id):
+        if request.user.is_authenticated:
+            genba = Genba.objects.get(id=genba_id)
+            form = GenbaForm(request.POST or None, instance=genba)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Genba Has Been Updated Successfully.")
+                return redirect("genba_list")
+            return render(request, "genba_details.html", {"form": form , "genba": genba })
+        else:
+            messages.success(request, "You Must Login First!")
+            return redirect("login")
+
 @login_required
 def add_genba(request):
     form = GenbaForm()
@@ -164,23 +178,25 @@ def add_genba(request):
             "form": form
         })
 
+@login_required
+def delete_genba(request, genba_id):
+    if request.user.is_authenticated:
+        current_genba = Genba.objects.get(id=genba_id)
+        print(current_genba)
+        current_genba.is_active=False
+        current_genba.save()
+        messages.success(request, "Your Genba was Updated Successfully.")
+        return redirect("genba_list")
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login")
+
+
+
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-@login_required(login_url='/login_user/')
-def genba_details(request, genba_id):
-        if request.user.is_authenticated:
-            genba = Genba.objects.get(id=genba_id)
-            form = GenbaForm(request.POST or None, instance=genba)
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Genba Has Been Updated Successfully.")
-                return redirect("genba_list")
-            return render(request, "genba_details.html", {"form": form , "genba": genba })
-        else:
-            messages.success(request, "You Must Login First!")
-            return redirect("login")
 
 @login_required(login_url='/login_user/')
 def add_report(request):    
