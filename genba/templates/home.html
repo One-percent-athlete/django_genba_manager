@@ -20,15 +20,19 @@
             </button>
         </form>
         <ul class="mt-5 space-y-1 text-gray-500 list-disc list-inside mb-2 text-lg font-semibold">
+            {% if notifications %}
+            {% for n in notifications %}
             <li>
-                雪道運転は慎重に<a class="pl-6 text-2xl text-red-500" href="#">x</a>
+                {{n.content}} - {{ n.author }}<a class="pl-6 text-2xl text-red-500" href="#"><svg
+                        class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18 17.94 6M18 18 6.06 6" />
+                    </svg>
+                </a>
             </li>
-            <li>
-                サウナーメンテナウンス中<a class="pl-6 text-2xl text-red-500" href="#">x</a>
-            </li>
-            <li>
-                車検中の車両（）<a class="pl-6 text-2xl text-red-500" href="#">x</a>
-            </li>
+            {% endfor %}
+            {% endif %}
         </ul>
         <div class="px-auto">
             <h1 class="text-4xl py-10">本日の作業現場({{ genbas.count }})<a class="pl-8" href="{% url 'add_genba' %}">＋</a>
@@ -66,7 +70,7 @@
                 {% for genba in genbas %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="{% url 'genba_details' %}">
+                        <a href="{% url 'genba_details' genba.id %}">
                             {{ genba.name }}
                         </a>
                     </th>
@@ -86,7 +90,8 @@
                         {{ genba.note }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{% url 'genba_details' %}" class="font-medium text-blue-600 hover:underline">編集</a>
+                        <a href="{% url 'genba_details' genba.id %}"
+                            class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
                 {% endfor %}

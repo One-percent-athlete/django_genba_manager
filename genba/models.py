@@ -46,4 +46,10 @@ class Genba(models.Model):
     def __str__(self):
         return f"{self.name} - {self.client} - {self.head_person}"
 
-
+class Notification(models.Model):
+    author = models.ForeignKey(Profile, related_name="notification", on_delete=models.CASCADE)
+    content = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.content} - {self.author} - {self.created_at}"

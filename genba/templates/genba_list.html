@@ -43,6 +43,7 @@
             <tbody>
                 {% if genbas %}
                 {% for genba in genbas %}
+                {% if genba.is_active %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="{% url 'genba_details' genba.id %}">
@@ -72,6 +73,7 @@
                             class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
                 {% endif %}
             </tbody>
@@ -115,6 +117,7 @@
             <tbody>
                 {% if genbas %}
                 {% for genba in genbas %}
+                {% if genba.is_active == False %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="{% url 'genba_details' genba.id %}">
@@ -131,6 +134,9 @@
                         {{ genba.start_date }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
+                        {{ genba.end_date }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.job_description }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -141,6 +147,7 @@
                             class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
                 {% endif %}
             </tbody>

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Profile, Genba
+from .models import Profile, Genba, Notification
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import calendar
@@ -13,8 +13,8 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm
 @login_required(login_url='/login_user/')
 def home(request):
     genbas = Genba.objects.all()
-    
-    return render(request, "home.html", {"genbas": genbas})
+    notifications = Notification.objects.all()
+    return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
 
 def login_user(request):
     if request.method == "POST":
@@ -51,7 +51,7 @@ def register_user(request):
             return redirect("update_profile", user.pk)
         else:
             messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
-            return redirect("login_user")
+            return redirect("register_user")
     else:
         return render(request, "authenticate/register_user.html", {
             "form": form
