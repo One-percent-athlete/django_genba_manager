@@ -12,9 +12,31 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm
 
 @login_required(login_url='/login_user/')
 def home(request):
-    genbas = Genba.objects.all()
-    notifications = Notification.objects.all()
-    return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
+    if request.user.is_authenticated:
+
+        if request.method == "POST":
+            content = request.POST.get("content")
+            author = User.objects.get(id=request.user.id)
+            notification = Notification.objects.create(content=content, author=author)
+            notification.save()
+
+        genbas = Genba.objects.all()
+        notifications = Notification.objects.all()
+        return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login_user")
+
+def delete_notification(request, notification_id):
+    if request.user.is_authenticated:
+        notification = Notification.objects.get(id=notification_id)
+        notification.delete()
+        messages.success(request, "Notification deleted")
+        return redirect("home")
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login_user")
+
 
 def login_user(request):
     if request.method == "POST":
