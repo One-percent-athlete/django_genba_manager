@@ -94,13 +94,13 @@ def register_user(request):
 
 def update_profile(request, profile_id):
     if request.user.is_authenticated:
-        user = Profile.objects.get(id=profile_id)
-        form = UserProfileForm(request.POST or None, instance=user)
+        profile = Profile.objects.get(id=profile_id)
+        form = UserProfileForm(request.POST or None, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Profile Has Been Updated Successfully.")
             return redirect("user_list")
-        return render(request, "update_profile.html", {"form": form , "user": user })
+        return render(request, "update_profile.html", {"form": form , "profile": profile })
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
