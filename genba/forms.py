@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm,SetPasswordForm
 from django import forms
-from .models import Profile
+from .models import Profile, Genba
 
 class SignUpForm(UserCreationForm):
 
@@ -40,5 +40,20 @@ class UserProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Profile
+		fields = ('fullname', 'phone', 'note', 'contract_type', 'is_active')
+
+class GenbaForm(forms.ModelForm):
+	head_person = forms.
+    attendees = 
+    name = 
+    client = 
+    address = 
+    job_description = 
+    note = 
+    start_date = 
+	end_date = 
+
+	class Meta:
+		model = Genba
 		fields = ('fullname', 'phone', 'note', 'contract_type', 'is_active')
 		

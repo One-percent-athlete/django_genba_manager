@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Genba
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import calendar
@@ -12,7 +12,9 @@ from .forms import SignUpForm, UserProfileForm
 
 @login_required(login_url='/login_user/')
 def home(request):
-        return render(request, "home.html")
+    genbas = Genba.objects.all()
+    
+    return render(request, "home.html", {"genbas": genbas})
 
 def login_user(request):
     if request.method == "POST":
@@ -101,6 +103,8 @@ def user_list(request):
 
 @login_required(login_url='/login_user/')
 def schedule(request):
+
+    genbas = Genba.objects.all()
     year = int(x.year)
     month = int(x.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
@@ -108,6 +112,7 @@ def schedule(request):
     cal = mark_safe(cal)
     if request.user.is_authenticated:
          context = {
+            "genbas":genbas,
             "year": year,
             "month": month,
             "cal": cal,

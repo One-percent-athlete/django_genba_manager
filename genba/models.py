@@ -20,7 +20,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user} - {self.fullname}"
+        return f"{self.fullname}"
     
 
 def create_profile(sender, instance, created, **kwargs):
@@ -31,17 +31,18 @@ def create_profile(sender, instance, created, **kwargs):
 post_save.connect(create_profile, sender=User)
 
 class Genba(models.Model):
-    person_in_charge = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    head_person = models.ForeignKey(Profile, related_name="head_person", on_delete=models.CASCADE, null=True)
+    attendees = models.ManyToManyField(Profile, related_name="attendees", blank=True)
     name = models.CharField("Genba", max_length=255)
     client = models.CharField("Client", max_length=255)
     address = models.CharField("Address", max_length=255)
-    job_description = models.CharField("Job description", max_length=255)
-    remarks = models.CharField("Remarks", max_length=255)
+    job_description = models.CharField("Job description", max_length=255, blank=True, null=True)
+    note = models.CharField("Remarks", max_length=255, blank=True, null=True)
     start_date = models.DateTimeField("Start date")
     end_date = models.DateTimeField("End date")
-    date_created = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} - {self.client}"
+        return f"{self.name} - {self.client} - {self.head_person}"
 
 
