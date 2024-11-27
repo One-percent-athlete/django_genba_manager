@@ -11,7 +11,10 @@
 </head>
 
 <body>
+    {% if request.user.profile.contract_type == "元請" %}
+    {% else %}
     {% include 'assets/sidebar.html' %}
+    {% endif %}
     {% if messages %}
     {% for m in messages %}
     <div id="alert-1" class="flex items-center p-4 mb-4 mx-50 text-blue-800 rounded-lg bg-blue-50" role="alert">
