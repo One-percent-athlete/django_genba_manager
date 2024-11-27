@@ -2,13 +2,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Profile, Genba, Notification
+from .models import Profile, Genba, Notification, Daily_report
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import calendar
 import datetime
 x = datetime.datetime.now()
-from .forms import SignUpForm, UserProfileForm, GenbaForm
+from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -191,17 +191,28 @@ def delete_genba(request, genba_id):
         messages.success(request, "You Must Login First!")
         return redirect("login")
 
-
+@login_required
+def add_report(request):
+    form = DailyReportForm()
+    if request.method == "POST":
+        form = DailyReportForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Genba updated Successful!!"))
+            return redirect("report_list")
+        else:
+            messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
+            return redirect("report_list")
+    else:
+        return render(request, "add_report.html", {
+            "form": form
+        })
+    
 
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
-
-
-@login_required(login_url='/login_user/')
-def add_report(request):    
-        return render(request, "add_report.html")
-
+    
 @login_required(login_url='/login_user/')
 def report_list(request):    
         return render(request, "report_list.html")

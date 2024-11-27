@@ -73,6 +73,7 @@ class Daily_report(models.Model):
     daily_details = models.CharField(max_length=500, blank=True)
     daily_note = models.CharField(max_length=500, blank=True)
     kentaikyo = models.BooleanField(default=False)
-
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
 

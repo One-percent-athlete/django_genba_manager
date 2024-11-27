@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Profile, Genba, Notification
+from .models import Profile, Genba, Notification, Daily_report
 
 # Register your models here.
 admin.site.register(Profile)
 admin.site.register(Genba)
 admin.site.register(Notification)
+admin.site.register(Daily_report)
 
 class ProfileInline(admin.StackedInline):
     model = Profile
