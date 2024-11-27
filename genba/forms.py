@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm,SetPasswordForm
 from django import forms
-from .models import Profile, Genba
+from .models import Profile, Genba, Daily_report
 
 class SignUpForm(UserCreationForm):
 
@@ -49,12 +49,14 @@ class GenbaForm(forms.ModelForm):
 	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
 	address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'場所'}))
 	job_description = forms.CharField(label="", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
-	note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
-	is_active = forms.BooleanField(label="is_active", required=False)
+	note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'連絡事項'}))
+	is_active = forms.BooleanField(label="未完了", required=False)
 	start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 	end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
 	class Meta:
 		model = Genba
 		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date')
+
+
 		

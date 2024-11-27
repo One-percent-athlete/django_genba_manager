@@ -59,7 +59,7 @@ class Daily_report(models.Model):
         ('現金','現金'),
         ('カード', 'カード'),
         ('電子マネー', '電子マネー'),
-    )
+        )
     genba = models.ForeignKey(Genba, related_name="genba", on_delete=models.CASCADE)
     distance = models.CharField(max_length=10)
     highway_start = models.CharField(max_length=100, blank=True)
