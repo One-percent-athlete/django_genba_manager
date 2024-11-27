@@ -159,7 +159,6 @@ def genba_details(request, genba_id):
         else:
             messages.success(request, "You Must Login First!")
             return redirect("login")
-        return render(request, "genba_details.html")
 
 @login_required(login_url='/login_user/')
 def add_report(request):    

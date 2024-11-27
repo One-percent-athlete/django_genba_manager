@@ -50,10 +50,12 @@ class GenbaForm(forms.ModelForm):
 	address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'場所'}))
 	job_description = forms.CharField(label="", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
 	note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
+	is_active = forms.BooleanField(label="is_active", required=False)
+
     # start_date = forms.DateTimeField
 	# end_date = 
 
 	class Meta:
 		model = Genba
-		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note')
+		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active')
 		
