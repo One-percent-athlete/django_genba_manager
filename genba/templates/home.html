@@ -83,7 +83,7 @@
                         {{ genba.head_person }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.start_date }}
+                        {{ genba.start_date | date:"Y-m-j" }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.job_description }}

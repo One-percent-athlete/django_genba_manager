@@ -27,8 +27,8 @@
                     {% for genba in genbas %}
                     {
                 title: '{{ genba.name }} : {{ genba.head_person }}',
-                start: '{{ genba.start_date | date:"Y-m-d H:i" }}',
-                end: '{{ genba.end_date | date:"Y-m-d H:i" }}',
+                start: '{{ genba.start_date | date:"Y-m-j" }}',
+                end: '{{ genba.end_date | date:"Y-m-j" }}',
                 color: '#05ad16',
             },
             {% endfor %}
