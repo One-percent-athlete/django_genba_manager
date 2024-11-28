@@ -60,6 +60,10 @@ class Daily_report(models.Model):
         ('カード', 'カード'),
         ('電子マネー', '電子マネー'),
         )
+    DAY_OR_NIGHT = (
+        ('日勤','日勤'),
+        ('夜勤', '夜勤'),
+        )
     genba = models.ForeignKey(Genba, related_name="genba", on_delete=models.CASCADE)
     distance = models.CharField(max_length=10)
     highway_start = models.CharField(max_length=100, blank=True)
@@ -71,6 +75,7 @@ class Daily_report(models.Model):
     other_payment = models.CharField(max_length=100, blank=True)
     other_payment_amount = models.CharField(max_length=100, blank=True)
     daily_details = models.CharField(max_length=500, blank=True)
+    shift = models.CharField(max_length=50, choices=DAY_OR_NIGHT, default='日勤')
     daily_note = models.CharField(max_length=500, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     kentaikyo = models.BooleanField(default=False)
