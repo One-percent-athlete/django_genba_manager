@@ -74,7 +74,7 @@
             {% for report in reports %}
             <tbody>
                 <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                    {{report.date}}
+                    {{report.date_created | date:"Y-m-j" }}
                 </th>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.genba.name }}
@@ -104,7 +104,7 @@
                     {{ report.highway_end }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    {{ report.hightway_payment }}
+                    {{ report.highway_payment }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.parking }}
@@ -201,7 +201,7 @@
             {% for report in reports %}
             <tbody>
                 <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                    {{report.date}}
+                    {{report.date_created | date:"Y-m-j" }}
                 </th>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.genba.name }}
@@ -231,7 +231,7 @@
                     {{ report.highway_end }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    {{ report.hightway_payment }}
+                    {{ report.highway_payment }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.parking }}
