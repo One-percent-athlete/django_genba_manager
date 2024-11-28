@@ -39,7 +39,13 @@
                         終了時間
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        高速道路
+                        高速道路乗り
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        高速道路降り
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        高速道路料金
                     </th>
                     <th scope="col" class="px-6 py-3">
                         駐車場
@@ -61,53 +67,62 @@
                     </th>
                 </tr>
             </thead>
+            {% if reports %}
+            {% for report in reports %}
             <tbody>
                 <th scope="col" class="px-6 py-3">
                     {{report.date}}
                 </th>
                 <td scope="col" class="px-6 py-3">
-                    現場名
+                    {{ report.genba.name }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    取引先
+                    {{ report.genba.client }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    建退共
+                    {{ report.kentaikyo}}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    現場の長
+                    {{ report.genba.head_person }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    場所
+                    {{ report.genba.address }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    開始時間
+                    {{ report.start_time }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    終了時間
+                    {{ report.end_time }}
                 </td>
                 <th scope="col" class="px-6 py-3">
-                    高速道路
+                    {{ report.highway_start }} から
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    {{ report.highway_end }}
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    {{ report.hightway_payment }} </th>
                 <td scope="col" class="px-6 py-3">
-                    駐車場
+                    {{ report.parking }} {{ report.parking }} - 建替人:{{ report.paid_by }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    宿泊
+                    {{ report.hotel }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    その他支払い
+                    {{ report.other_payment }} {{ report.other_payment_amount }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    作業内容
+                    {{ report.daily_details }}
                 </td>
                 <td scope="col" class="px-6 py-3">
-                    連絡事項
+                    {{ report.daily_note }}
                 </td>
                 <td src="{% url 'report_details' %}" scope="col" class="px-6 py-3">
                     編集
                 </td>
             </tbody>
+            {% endfor %}
+            {% endif %}
         </table>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
