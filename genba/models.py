@@ -44,7 +44,7 @@ class Genba(models.Model):
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} - {self.client} - {self.head_person}"
+        return f"{self.name} - {self.client}"
 
 class Notification(models.Model):
     author = models.ForeignKey(User, related_name="notification", on_delete=models.CASCADE)
@@ -75,5 +75,9 @@ class Daily_report(models.Model):
     kentaikyo = models.BooleanField(default=False)
     start_time = models.TimeField()
     end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.genba}"
+
 
 
