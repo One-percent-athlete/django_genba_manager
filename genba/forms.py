@@ -58,12 +58,13 @@ class GenbaForm(forms.ModelForm):
 		model = Genba
 		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date')
 
+
 class DailyReportForm(forms.ModelForm):
 	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),
 	highway_start = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路乗ったインター'}))
 	highway_end = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路降りたインター'}))
-	hightway_payment = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速料金'}))
+	highway_payment = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速料金'}))
 	parking = forms.Select(attrs={"class":"form-select", "placeholder": "駐車料金"}),
 	paid_by = forms.Select(attrs={"class":"form-select", "placeholder": "建替人"}),
 	hotel = forms.BooleanField(label="宿泊利用", required=False)
@@ -77,5 +78,5 @@ class DailyReportForm(forms.ModelForm):
 
 	class Meta:
 		model = Daily_report
-		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'hightway_payment', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
+		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
 		
