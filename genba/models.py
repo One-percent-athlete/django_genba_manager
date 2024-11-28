@@ -72,6 +72,7 @@ class Daily_report(models.Model):
     other_payment_amount = models.CharField(max_length=100, blank=True)
     daily_details = models.CharField(max_length=500, blank=True)
     daily_note = models.CharField(max_length=500, blank=True)
+    date_created = models.DateTimeField(auto_now=True)
     kentaikyo = models.BooleanField(default=False)
     start_time = models.TimeField()
     end_time = models.TimeField()
