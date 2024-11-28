@@ -41,7 +41,7 @@ class Genba(models.Model):
     start_date = models.DateTimeField("Start date")
     end_date = models.DateTimeField("End date")
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} - {self.client}"
@@ -72,7 +72,7 @@ class Daily_report(models.Model):
     other_payment_amount = models.CharField(max_length=100, blank=True)
     daily_details = models.CharField(max_length=500, blank=True)
     daily_note = models.CharField(max_length=500, blank=True)
-    date_created = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     kentaikyo = models.BooleanField(default=False)
     start_time = models.TimeField()
     end_time = models.TimeField()
