@@ -214,8 +214,10 @@ def schedule_details(request):
     return render(request, "schedule_details.html")
     
 @login_required(login_url='/login_user/')
-def report_list(request):    
-        return render(request, "report_list.html")
+def report_list(request):
+    reports = Daily_report.objects.all()
+
+    return render(request, "report_list.html", { 'reports': reports })
 
 @login_required(login_url='/login_user/')
 def report_details(request):    
