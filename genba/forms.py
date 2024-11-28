@@ -60,11 +60,16 @@ class GenbaForm(forms.ModelForm):
 
 
 class DailyReportForm(forms.ModelForm):
+	PAYMENT_TYPES = (
+        ('現金','現金'),
+        ('カード', 'カード'),
+        ('電子マネー', '電子マネー'),
+        )
 	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),
 	highway_start = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路乗ったインター'}))
 	highway_end = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路降りたインター'}))
-	highway_payment = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速料金'}))
+	highway_payment = forms.ChoiceField(label="支払い方法", choices=PAYMENT_TYPES, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	parking = forms.Select(attrs={"class":"form-select", "placeholder": "駐車料金"}),
 	paid_by = forms.Select(attrs={"class":"form-select", "placeholder": "建替人"}),
 	hotel = forms.BooleanField(label="宿泊利用", required=False)
@@ -73,8 +78,9 @@ class DailyReportForm(forms.ModelForm):
 	daily_details = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
 	daily_note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'その他連絡事項'}))
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
-	start_time = forms.DateField(widget=forms.TimeInput(attrs={'type': 'time'}))
-	end_time = forms.DateField(widget=forms.TimeInput(attrs={'type': 'time'}))
+	start_time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+	end_time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+
 
 	class Meta:
 		model = Daily_report

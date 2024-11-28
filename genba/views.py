@@ -201,6 +201,7 @@ def add_report(request):
             messages.success(request, ("Genba updated Successful!!"))
             return redirect("report_list")
         else:
+            print(request.POST)
             messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
             return redirect("report_list")
     else:
