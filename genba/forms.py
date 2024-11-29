@@ -33,10 +33,11 @@ class UserProfileForm(forms.ModelForm):
         ('正社員', '正社員'),
         ('管理', '管理'),]
 	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'お名前フルねーム、スペースなし'}))
-	phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
-	note = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
+	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'お名前フルねーム、スペースなし'}))
+	phone = forms.CharField(label="携帯電話番号", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
+	note = forms.CharField(label="雇用形態", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Note'}))
 	contract_type = forms.ChoiceField(label="雇用形態", choices=CHOICE, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
-	is_active = forms.BooleanField(label="is_active", required=False)
+	is_active = forms.BooleanField(label="現役中", required=False)
 
 	class Meta:
 		model = Profile
