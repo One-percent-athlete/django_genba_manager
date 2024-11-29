@@ -54,7 +54,7 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.content} - {self.author} - {self.created_at}"
 
-class Daily_report(models.Model):
+class DailyReport(models.Model):
     PAYMENT_TYPES = (
         ('現金','現金'),
         ('カード', 'カード'),

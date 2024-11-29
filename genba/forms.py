@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm,SetPasswordForm
 from django import forms
-from .models import Profile, Genba, Daily_report
+from .models import Profile, Genba, DailyReport
 
 class SignUpForm(UserCreationForm):
 
@@ -64,11 +64,11 @@ class DailyReportForm(forms.ModelForm):
         ('現金','現金'),
         ('カード', 'カード'),
         ('電子マネー', '電子マネー'),
-        )
+        ),
 	DAY_OR_NIGHT = (
         ('日勤','日勤'),
         ('夜勤', '夜勤'),
-        )
+        ),
 	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),
 	highway_start = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路乗ったインター'}))
@@ -87,6 +87,6 @@ class DailyReportForm(forms.ModelForm):
 	end_time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
 
 	class Meta:
-		model = Daily_report
+		model = DailyReport
 		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
 		

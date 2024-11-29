@@ -1,13 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .models import Profile, Genba, Notification, Daily_report
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
+from django.contrib import messages
+from django.contrib.auth.models import User
 import calendar
 import datetime
 x = datetime.datetime.now()
+from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 
 @login_required(login_url='/login_user/')
@@ -36,7 +36,6 @@ def delete_notification(request, notification_id):
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login_user")
-
 
 def login_user(request):
     if request.method == "POST":
@@ -124,7 +123,6 @@ def user_list(request):
 
 @login_required(login_url='/login_user/')
 def schedule(request):
-
     genbas = Genba.objects.all()
     year = int(x.year)
     month = int(x.month)
@@ -149,17 +147,17 @@ def genba_list(request):
 
 @login_required(login_url='/login_user/')
 def genba_details(request, genba_id):
-        if request.user.is_authenticated:
-            genba = Genba.objects.get(id=genba_id)
-            form = GenbaForm(request.POST or None, instance=genba)
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Genba Has Been Updated Successfully.")
-                return redirect("genba_list")
-            return render(request, "genba_details.html", {"form": form , "genba": genba })
-        else:
-            messages.success(request, "You Must Login First!")
-            return redirect("login")
+    if request.user.is_authenticated:
+        genba = Genba.objects.get(id=genba_id)
+        form = GenbaForm(request.POST or None, instance=genba)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Genba Has Been Updated Successfully.")
+            return redirect("genba_list")
+        return render(request, "genba_details.html", {"form": form , "genba": genba })
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login")
 
 @login_required
 def add_genba(request):
@@ -209,19 +207,31 @@ def add_report(request):
             "form": form
         })
     
+@login_required(login_url='/login_user/')
+def report_details(request, report_id):
+    if request.user.is_authenticated:
+        genba = DailyReport.objects.get(id=report_id)
+        form = GenbaForm(request.POST or None, instance=genba)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Genba Has Been Updated Successfully.")
+            return redirect("genba_list")
+        return render(request, "report_details.html", {"form": form , "genba": genba })
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login")
+
 
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
-    
+
 @login_required(login_url='/login_user/')
 def report_list(request):
     reports = Daily_report.objects.all()
     return render(request, "report_list.html", { 'reports': reports })
 
-@login_required(login_url='/login_user/')
-def report_details(request):    
-        return render(request, "report_details.html")
+
 
 
     
