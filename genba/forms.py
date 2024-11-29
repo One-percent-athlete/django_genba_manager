@@ -64,11 +64,11 @@ class DailyReportForm(forms.ModelForm):
         ('現金','現金'),
         ('カード', 'カード'),
         ('電子マネー', '電子マネー'),
-        ),
+        )
 	DAY_OR_NIGHT = (
         ('日勤','日勤'),
         ('夜勤', '夜勤'),
-        ),
+        )
 	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	shift = forms.ChoiceField(label="昼夜シフト", choices=DAY_OR_NIGHT, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),

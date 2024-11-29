@@ -19,7 +19,7 @@ urlpatterns = [
     path('genba_details/<int:genba_id>/', views.genba_details, name="genba_details"),
     
     path('report_list/', views.report_list, name="report_list"),
-    # path('report_details/<int:report_id>/', views.report_details, name="report_details"),
+    path('report_details/<int:report_id>/', views.report_details, name="report_details"),
     path('add_report/', views.add_report, name="add_report"),
     path('schedule_details/', views.schedule_details, name="schedule_details"),
 ]

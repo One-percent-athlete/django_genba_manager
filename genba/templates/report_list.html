@@ -131,7 +131,8 @@
                     {{ report.daily_note }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
+                    <a href="{% url 'report_details' report.id %}"
+                        class="font-medium text-blue-600 hover:underline">編集</a>
                 </td>
             </tbody>
             {% endfor %}
@@ -264,7 +265,8 @@
                     {{ report.daily_note }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
+                    <a href="{% url 'report_details' report.id %}"
+                        class="font-medium text-blue-600 hover:underline">編集</a>
                 </td>
             </tbody>
             {% endfor %}
