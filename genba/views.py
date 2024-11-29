@@ -219,6 +219,17 @@ def report_details(request, report_id):
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
+    
+@login_required
+def delete_report(request, report_id):
+    if request.user.is_authenticated:
+        report = DailyReport.objects.get(id=report_id)
+        report.delete()
+        messages.success(request, "Your Report was Updated Successfully.")
+        return redirect("report_list")
+    else:
+        messages.success(request, "You Must Login First!")
+        return redirect("login")
 
 
 @login_required(login_url='/login/')
