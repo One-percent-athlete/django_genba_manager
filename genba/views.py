@@ -77,19 +77,6 @@ def register_user(request):
         return render(request, "authenticate/register_user.html", {
             "form": form
         })
-    
-# def update_user(request):
-#     if request.user.is_authenticated:
-#         current_user = User.objects.get(id=request.user.id)
-#         form = UpdateUserForm(request.POST or None, instance=current_user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Your Infomation Has Been Updated Successfully.")
-#             return redirect("user_list")
-#         return render(request, "authenticate/update_user.html", {"form": form})
-#     else:
-#         messages.success(request, "You Must Login First!")
-#         return redirect("login")
 
 def update_profile(request, profile_id):
     if request.user.is_authenticated:
@@ -98,7 +85,7 @@ def update_profile(request, profile_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Profile Has Been Updated Successfully.")
-            return redirect("user_list")
+            return redirect("profile_list")
         return render(request, "update_profile.html", {"form": form , "profile": profile })
     else:
         messages.success(request, "You Must Login First!")
@@ -110,16 +97,16 @@ def delete_user(request, user_id):
         current_user.is_active=False
         current_user.save()
         messages.success(request, "Your Profile Has Been Deleted Successfully.")
-        return redirect("user_list")
+        return redirect("profile_list")
     else:
         messages.success(request, "You Must Login First!")
         return redirect("home")
 
 @login_required(login_url='/login_user/')
-def user_list(request):
+def profile_list(request):
     profiles = Profile.objects.all()
     contract = request.user.profile.contract_type
-    return render(request, "user_list.html", { "profiles": profiles, "contract": contract })
+    return render(request, "profile_list.html", { "profiles": profiles, "contract": contract })
 
 @login_required(login_url='/login_user/')
 def schedule(request):

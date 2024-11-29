@@ -68,8 +68,6 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="{% url 'update_profile' profile.id %}"
                             class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="{% url 'delete_user' profile.id %}"
-                            class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
                     </td>
                     {% endif %}
                 </tr>
@@ -140,7 +138,6 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="{% url 'update_profile' profile.id %}"
                             class="font-medium text-blue-600 hover:underline">編集</a>
-                        <a href="#" class="px-0 pl-6 font-medium text-red-600 hover:underline">削除</a>
                     </td>
                     {% endif %}
                 </tr>
