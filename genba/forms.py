@@ -69,7 +69,7 @@ class DailyReportForm(forms.ModelForm):
         ('日勤','日勤'),
         ('夜勤', '夜勤'),
         )
-	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
+	genba = forms.Select(attrs={"class":"form-select"}),
 	shift = forms.ChoiceField(label="昼夜シフト", choices=DAY_OR_NIGHT, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),
 	highway_start = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路乗ったインター'}))
@@ -89,4 +89,14 @@ class DailyReportForm(forms.ModelForm):
 	class Meta:
 		model = DailyReport
 		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
-		
+		labels={
+           'genba':'現場名',
+           'distance':'走行距離数',
+           'parking':'駐車場利用料金（利用した場合のみ）',
+		   'paid_by': '建替人',
+		   'other_payment': 'その他使ったもの',
+		   'other_payment_amount': '使った金額', 
+		   'kentaikyo':'建退共',
+		   'start_time': '作業開始時間',
+		   'end_time': '作業終了時間',
+           }
