@@ -15,17 +15,17 @@ class SignUpForm(UserCreationForm):
 		self.fields['username'].widget.attrs['class'] = 'form-control'
 		self.fields['username'].widget.attrs['placeholder'] = 'ユーザー名'
 		self.fields['username'].label = ''
-		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+		self.fields['username'].help_text = '<span class="form-text text-muted"><small>記号、スペースなし、150文字以下</small></span>'
 
 		self.fields['password1'].widget.attrs['class'] = 'form-control'
 		self.fields['password1'].widget.attrs['placeholder'] = 'パスワード'
 		self.fields['password1'].label = ''
-		self.fields['password1'].help_text = '<ul class="form-text text-muted small"><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul>'
+		self.fields['password1'].help_text = '<ul class="form-text text-muted small"><li>ユーザー名と一致しない</li><li>8文字以上</li><li>数字のみ不可</li></ul>'
 
 		self.fields['password2'].widget.attrs['class'] = 'form-control'
 		self.fields['password2'].widget.attrs['placeholder'] = '確認パスワード'
 		self.fields['password2'].label = ''
-		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before for verification.</small></span>'
+		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>再度パスワード入力</small></span>'
     
 class UserProfileForm(forms.ModelForm):
 	CHOICE = [
