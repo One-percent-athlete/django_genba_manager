@@ -199,7 +199,6 @@ def add_report(request):
             messages.success(request, ("Genba updated Successful!!"))
             return redirect("report_list")
         else:
-            print(request.POST)
             messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
             return redirect("report_list")
     else:
@@ -228,7 +227,7 @@ def schedule_details(request):
 
 @login_required(login_url='/login_user/')
 def report_list(request):
-    reports = Daily_report.objects.all()
+    reports = DailyReport.objects.all()
     return render(request, "report_list.html", { 'reports': reports })
 
 
