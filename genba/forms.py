@@ -70,11 +70,11 @@ class DailyReportForm(forms.ModelForm):
         ('夜勤', '夜勤'),
         ),
 	genba = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
+	shift = forms.ChoiceField(label="昼夜シフト", choices=DAY_OR_NIGHT, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	distance = forms.Select(attrs={"class":"form-select", "placeholder": "距離"}),
 	highway_start = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路乗ったインター'}))
 	highway_end = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路降りたインター'}))
 	highway_payment = forms.ChoiceField(label="支払い方法", choices=PAYMENT_TYPES, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
-	shift = forms.ChoiceField(label="昼夜シフト", choices=DAY_OR_NIGHT, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	parking = forms.Select(attrs={"class":"form-select", "placeholder": "駐車料金"}),
 	paid_by = forms.Select(attrs={"class":"form-select", "placeholder": "建替人"}),
 	hotel = forms.BooleanField(label="宿泊利用", required=False)
