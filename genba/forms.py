@@ -47,16 +47,22 @@ class GenbaForm(forms.ModelForm):
 	attendees = forms.SelectMultiple(attrs={"class":"form-control", "placeholder": "その他作業員"}),
 	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
-	address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'場所'}))
-	job_description = forms.CharField(label="", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
-	note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'連絡事項'}))
+	address = forms.CharField(label="場所", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+	job_description = forms.CharField(label="作業内容", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+	note = forms.CharField(label="連絡事項", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	is_active = forms.BooleanField(label="未完了", required=False)
-	start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-	end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+	start_date = forms.DateField(label='作業開始日', widget=forms.DateInput(attrs={'type': 'date'}))
+	end_date = forms.DateField(label='作業終了日', widget=forms.DateInput(attrs={'type': 'date'}))
 
 	class Meta:
 		model = Genba
 		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date')
+		labels = {
+			'head_person':'現場の長',
+			'attendees': '作業員',
+			'name': '現場名',
+			'client': '取引先'
+		}
 
 
 class DailyReportForm(forms.ModelForm):
