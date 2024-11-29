@@ -210,13 +210,13 @@ def add_report(request):
 @login_required(login_url='/login_user/')
 def report_details(request, report_id):
     if request.user.is_authenticated:
-        genba = DailyReport.objects.get(id=report_id)
-        form = GenbaForm(request.POST or None, instance=genba)
+        report = DailyReport.objects.get(id=report_id)
+        form = GenbaForm(request.POST or None, instance=report)
         if form.is_valid():
             form.save()
-            messages.success(request, "Genba Has Been Updated Successfully.")
-            return redirect("genba_list")
-        return render(request, "report_details.html", {"form": form , "genba": genba })
+            messages.success(request, "Report Has Been Updated Successfully.")
+            return redirect("report_list")
+        return render(request, "report_details.html", {"form": form , "report": report })
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
