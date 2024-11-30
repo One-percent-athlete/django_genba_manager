@@ -22,6 +22,7 @@ def home(request):
 
         genbas = Genba.objects.all()
         notifications = Notification.objects.all()
+        reports = DailyReport.objects.all()
         return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
     else:
         messages.success(request, "You Must Login First!")
@@ -174,6 +175,11 @@ def delete_genba(request, genba_id):
     else:
         messages.success(request, "You Must Login First!")
         return redirect("login")
+    
+@login_required(login_url='/login_user/')
+def report_list(request):
+    reports = DailyReport.objects.all()
+    return render(request, "report_list.html", { 'reports': reports })
 
 @login_required
 def add_report(request):
@@ -222,10 +228,6 @@ def delete_report(request, report_id):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-@login_required(login_url='/login_user/')
-def report_list(request):
-    reports = DailyReport.objects.all()
-    return render(request, "report_list.html", { 'reports': reports })
 
 
 
