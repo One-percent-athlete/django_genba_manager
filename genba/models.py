@@ -48,7 +48,7 @@ class Genba(models.Model):
     name = models.CharField("Genba", max_length=255)
     client = models.CharField("Client", max_length=255)
     address = models.CharField("Address", max_length=255)
-    color = models.CharField(max_length=30, choices=COLORS)
+    color = models.CharField(max_length=30, choices=COLORS ,blank=True)
     job_description = models.CharField("Job description", max_length=255, blank=True, null=True)
     note = models.CharField("Note", max_length=255, blank=True, null=True)
     start_date = models.DateTimeField("Start date")
