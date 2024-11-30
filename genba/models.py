@@ -32,11 +32,17 @@ def create_profile(sender, instance, created, **kwargs):
 post_save.connect(create_profile, sender=User)
 
 class Genba(models.Model):
+    COLORS = (
+        ('元請', '元請'),
+        ('正社員', '正社員'),
+        ('管理', '管理'),
+    )
     head_person = models.ForeignKey(Profile, related_name="head_person", on_delete=models.CASCADE, null=True)
     attendees = models.ManyToManyField(Profile, related_name="attendees", blank=True)
     name = models.CharField("Genba", max_length=255)
     client = models.CharField("Client", max_length=255)
     address = models.CharField("Address", max_length=255)
+    color = models.CharField(max_length=30, choices=COLORS)
     job_description = models.CharField("Job description", max_length=255, blank=True, null=True)
     note = models.CharField("Note", max_length=255, blank=True, null=True)
     start_date = models.DateTimeField("Start date")
