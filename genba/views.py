@@ -25,7 +25,7 @@ def home(request):
         reports = DailyReport.objects.all()
         return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login_user")
 
 def delete_notification(request, notification_id):
@@ -35,7 +35,7 @@ def delete_notification(request, notification_id):
         messages.success(request, "Notification deleted")
         return redirect("home")
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login_user")
 
 def login_user(request):
@@ -45,10 +45,10 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ("Welcome back!"))
+            messages.success(request, ("お疲れ様です。"))
             return redirect("home")
         else:
-            messages.success(request, ("Username Or Password Was Not Correct, Please Try Again."))
+            messages.success(request, ("ユーザー名、またはパスワードが違います。再度お試しください。"))
             return redirect("login_user")
     else:
         return render(request, "authenticate/login.html", {})   
@@ -56,7 +56,7 @@ def login_user(request):
 @login_required(login_url='/login_user/')
 def logout_user(request):
     logout(request)
-    messages.success(request, ("You Are Logged Out"))
+    messages.success(request, ("ログアウトしました。"))
     return redirect("login_user")
 
 def register_user(request):
@@ -69,10 +69,10 @@ def register_user(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("Welcome, Please Fill Out Your Profile."))
+            messages.success(request, ("プロフィールを入力してください。"))
             return redirect("update_profile", user.pk)
         else:
-            messages.success(request, ("Whoops, There Was A Problem Registering, Please Try Agian.."))
+            messages.success(request, ("再度お試しください。"))
             return redirect("register_user")
     else:
         return render(request, "authenticate/register_user.html", {
@@ -85,11 +85,11 @@ def update_profile(request, profile_id):
         form = UserProfileForm(request.POST or None, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request, "Profile Has Been Updated Successfully.")
+            messages.success(request, "プロフィールを更新しました。")
             return redirect("profile_list")
         return render(request, "update_profile.html", {"form": form , "profile": profile })
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login")
     
 def delete_user(request, user_id):
@@ -97,10 +97,10 @@ def delete_user(request, user_id):
         current_user = Profile.objects.get(user__id=user_id)
         current_user.is_active=False
         current_user.save()
-        messages.success(request, "Your Profile Has Been Deleted Successfully.")
+        messages.success(request, "プロフィールを削除しました。")
         return redirect("profile_list")
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("home")
 
 @login_required(login_url='/login_user/')
@@ -140,11 +140,11 @@ def genba_details(request, genba_id):
         form = GenbaForm(request.POST or None, instance=genba)
         if form.is_valid():
             form.save()
-            messages.success(request, "Genba Has Been Updated Successfully.")
+            messages.success(request, "現場を更新しました。")
             return redirect("genba_list")
         return render(request, "genba_details.html", {"form": form , "genba": genba })
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login")
 
 @login_required
@@ -154,10 +154,10 @@ def add_genba(request):
         form = GenbaForm(request.POST or None)
         if form.is_valid():
             form.save()
-            messages.success(request, ("Genba updated Successful!!"))
+            messages.success(request, ("現場を追加しました。"))
             return redirect("genba_list")
         else:
-            messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
+            messages.success(request, ("再度お試しください。"))
             return redirect("genba_list")
     else:
         return render(request, "add_genba.html", {
@@ -170,10 +170,10 @@ def delete_genba(request, genba_id):
         current_genba = Genba.objects.get(id=genba_id)
         current_genba.is_active=False
         current_genba.save()
-        messages.success(request, "Your Genba was Updated Successfully.")
+        messages.success(request, "現場を削除しました。")
         return redirect("genba_list")
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login")
     
 @login_required(login_url='/login_user/')
@@ -188,10 +188,10 @@ def add_report(request):
         form = DailyReportForm(request.POST or None)
         if form.is_valid():
             form.save()
-            messages.success(request, ("Genba updated Successful!!"))
+            messages.success(request, ("作業日報を追加しました。"))
             return redirect("report_list")
         else:
-            messages.success(request, ("Whoops, There Was A Problem, Please Try Agian.."))
+            messages.success(request, ("再度お試しください。"))
             return redirect("report_list")
     else:
         return render(request, "add_report.html", {
@@ -205,11 +205,11 @@ def report_details(request, report_id):
         form = DailyReportForm(request.POST or None, instance=report)
         if form.is_valid():
             form.save()
-            messages.success(request, "Report Has Been Updated Successfully.")
+            messages.success(request, "作業日報を更新しました。")
             return redirect("report_list")
         return render(request, "report_details.html", {"form": form , "report": report })
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login")
     
 @login_required
@@ -217,10 +217,10 @@ def delete_report(request, report_id):
     if request.user.is_authenticated:
         report = DailyReport.objects.get(id=report_id)
         report.delete()
-        messages.success(request, "Your Report was Updated Successfully.")
+        messages.success(request, "作業日報を更新しました。")
         return redirect("report_list")
     else:
-        messages.success(request, "You Must Login First!")
+        messages.success(request, "ログインしてください。")
         return redirect("login")
 
 
