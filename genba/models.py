@@ -11,7 +11,7 @@ class Profile(models.Model):
         ('正社員', '正社員'),
         ('管理', '管理'),
     )
-    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, blank=True)
+    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, default='管理')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=20, blank=True)
