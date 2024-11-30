@@ -33,16 +33,15 @@ post_save.connect(create_profile, sender=User)
 
 class Genba(models.Model):
     COLORS = (
-        ('#ff6961', '#ff6961'),
-        ('#ffb480', '#ffb480'),
-        ('#f8f38d', '#f8f38d'),
-        ('#42d6a4', '#42d6a4'),
-        ('#08cad1', '#08cad1'),
-        ('#59adf6', '#59adf6'),
-        ('#9d94ff', '#9d94ff'),
-        ('#c780e8', '#c780e8'),
+        ('#ff6961', '赤色'),
+        ('#ffb480', '橙色'),
+        ('#f8f38d', '黄色'),
+        ('#42d6a4', '緑色'),
+        ('#08cad1', '水色'),
+        ('#59adf6', '青色'),
+        ('#9d94ff', '紫色'),
+        ('#c780e8', '桃色'),
     )
-
     head_person = models.ForeignKey(Profile, related_name="head_person", on_delete=models.CASCADE, null=True)
     attendees = models.ManyToManyField(Profile, related_name="attendees", blank=True)
     name = models.CharField("Genba", max_length=255)
