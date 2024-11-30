@@ -167,7 +167,6 @@ def add_genba(request):
 def delete_genba(request, genba_id):
     if request.user.is_authenticated:
         current_genba = Genba.objects.get(id=genba_id)
-        print(current_genba)
         current_genba.is_active=False
         current_genba.save()
         messages.success(request, "Your Genba was Updated Successfully.")
