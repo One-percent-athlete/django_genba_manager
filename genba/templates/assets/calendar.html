@@ -29,7 +29,7 @@
                 title: '{{ genba.name }} : {{ genba.head_person }}',
                 start: '{{ genba.start_date | date:"Y-m-j" }}',
                 end: '{{ genba.end_date | date:"Y-m-j" }}',
-                color: '#05ad16',
+                color: '{{genba.color}}',
             },
             {% endfor %}
             ]

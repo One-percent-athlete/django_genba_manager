@@ -4,7 +4,6 @@ from django import forms
 from .models import Profile, Genba, DailyReport
 
 class SignUpForm(UserCreationForm):
-
 	class Meta:
 		model = User
 		fields = ('username', 'password1', 'password2')
@@ -44,11 +43,22 @@ class UserProfileForm(forms.ModelForm):
 		fields = ('fullname', 'phone', 'note', 'contract_type', 'is_active')
 
 class GenbaForm(forms.ModelForm):
+	COLORS = (
+        ('#ff6961', '赤色'),
+        ('#ffb480', '橙色'),
+        ('#f8f38d', '黄色'),
+        ('#42d6a4', '緑色'),
+        ('#08cad1', '水色'),
+        ('#59adf6', '青色'),
+        ('#9d94ff', '紫色'),
+        ('#c780e8', '桃色'),
+    )
 	head_person = forms.Select(attrs={"class":"form-select", "placeholder": "現場の長"}),
 	attendees = forms.SelectMultiple(attrs={"class":"form-control", "placeholder": "その他作業員"}),
 	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
 	address = forms.CharField(label="場所", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+	color = forms.ChoiceField(label="カレンダー表示色", choices=COLORS, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	job_description = forms.CharField(label="作業内容", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	note = forms.CharField(label="連絡事項", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	is_active = forms.BooleanField(label="未完了", required=False)
@@ -57,7 +67,7 @@ class GenbaForm(forms.ModelForm):
 
 	class Meta:
 		model = Genba
-		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date')
+		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date', 'color', )
 		labels = {
 			'head_person':'現場の長',
 			'attendees': '作業員',
