@@ -75,6 +75,7 @@
             </thead>
             {% if reports %}
             {% for report in reports %}
+            {% if report.Is_past == 'Future' %}
             <tbody>
                 <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                     {{report.date_created | date:"Y-m-j" }}
@@ -135,6 +136,7 @@
                         class="font-medium text-blue-600 hover:underline">編集</a>
                 </td>
             </tbody>
+            {% endif %}
             {% endfor %}
             {% endif %}
         </table>
@@ -209,6 +211,7 @@
             </thead>
             {% if reports %}
             {% for report in reports %}
+            {% if report.Is_past == 'Past' %}
             <tbody>
                 <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                     {{report.date_created | date:"Y-m-j" }}
@@ -269,6 +272,7 @@
                         class="font-medium text-blue-600 hover:underline">編集</a>
                 </td>
             </tbody>
+            {% endif %}
             {% endfor %}
             {% endif %}
         </table>

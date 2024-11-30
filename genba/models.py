@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import User
@@ -45,6 +46,15 @@ class Genba(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.client}"
+    
+    @property
+    def Is_past(self):
+        today = date.today()
+        if self.end_date.date() < today:
+            text = "Past"
+        else:
+            text = "Future"
+        return text
 
 class Notification(models.Model):
     author = models.ForeignKey(User, related_name="notification", on_delete=models.CASCADE)
@@ -81,6 +91,15 @@ class DailyReport(models.Model):
     kentaikyo = models.BooleanField(default=False)
     start_time = models.TimeField()
     end_time = models.TimeField()
+
+    @property
+    def Is_past(self):
+        today = date.today()
+        if self.date_created.date() < today:
+            text = "Past"
+        else:
+            text = "Future"
+        return text
 
     def __str__(self):
         return f"{self.genba}"
