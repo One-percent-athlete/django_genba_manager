@@ -16,9 +16,6 @@
                 class="text-normal text-gray-700 uppercase bg-gray-50 whitespace-nowrap dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        ユーザーID
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         ユーザー名
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -45,13 +42,8 @@
                 {% if profile.is_active == True %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="#">
-                            {{ profile.id }}
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ profile.user }}
-                    </td>
+                    </th>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ profile.fullname }}
                     </td>
@@ -86,9 +78,6 @@
                 class="text-normal text-gray-700 uppercase bg-gray-50 whitespace-nowrap dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        ユーザーID
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         ユーザー名
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -115,13 +104,8 @@
                 {% if profile.is_active == False %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="">
-                            {{ profile.id }}
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ profile.user }}
-                    </td>
+                    </th>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ profile.fullname }}
                     </td>
