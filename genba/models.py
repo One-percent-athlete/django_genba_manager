@@ -100,8 +100,8 @@ class DailyReport(models.Model):
     daily_note = models.CharField(max_length=500, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     kentaikyo = models.BooleanField(default=False)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField('作業終了日')
+    end_time = models.TimeField('作業終了日')
 
     @property
     def Is_past(self):

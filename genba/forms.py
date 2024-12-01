@@ -72,7 +72,9 @@ class GenbaForm(forms.ModelForm):
 			'head_person':'現場の長',
 			'attendees': '作業員',
 			'name': '現場名',
-			'client': '取引先'
+			'client': '取引先',
+			'start_date': '作業開始日',
+			'end_date': '作業終了日' 
 		}
 
 
