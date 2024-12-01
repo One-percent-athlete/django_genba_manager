@@ -106,7 +106,7 @@ class DailyReportForm(forms.ModelForm):
 	class Meta:
 		model = DailyReport
 		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
-		labels={
+		labels = {
            'genba':'現場名',
            'distance':'走行距離数',
            'parking':'駐車場利用料金（利用した場合のみ）',
