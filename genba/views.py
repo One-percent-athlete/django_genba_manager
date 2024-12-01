@@ -221,7 +221,6 @@ def delete_report(request, report_id):
         messages.success(request, "ログインしてください。")
         return redirect("login")
 
-
 @login_required(login_url='/login/')
 def schedule_details(request):
     return render(request, "schedule_details.html")
