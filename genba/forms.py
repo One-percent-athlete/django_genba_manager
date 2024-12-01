@@ -67,7 +67,7 @@ class GenbaForm(forms.ModelForm):
 
 	class Meta:
 		model = Genba
-		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date', 'color', )
+		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date', 'color')
 		labels = {
 			'head_person':'現場の長',
 			'attendees': '作業員',
