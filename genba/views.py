@@ -13,13 +13,11 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 @login_required(login_url='/login_user/')
 def home(request):
     if request.user.is_authenticated:
-
         if request.method == "POST":
             content = request.POST.get("content")
             author = User.objects.get(id=request.user.id)
             notification = Notification.objects.create(content=content, author=author)
             notification.save()
-
         genbas = Genba.objects.all()
         notifications = Notification.objects.all()
         reports = DailyReport.objects.all()
