@@ -30,7 +30,7 @@ def delete_notification(request, notification_id):
     if request.user.is_authenticated:
         notification = Notification.objects.get(id=notification_id)
         notification.delete()
-        messages.success(request, "Notification deleted")
+        messages.success(request, "連絡事項を削除しました。")
         return redirect("home")
     else:
         messages.success(request, "ログインしてください。")
