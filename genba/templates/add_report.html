@@ -6,11 +6,10 @@
 {% block content %}
 <div class="p-4 sm:ml-64">
     <h1 class="text-4xl py-10">現場毎作業日報</h1>
-    <form class="container" method="post" action="{% url 'add_report' %}">
-        <div class="grid gap-6 mb-6 md:grid-cols-2">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <!-- <div>
+    <form class="space-y-4" method="post" action="{% url 'add_report' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <div>
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">作業員の長</label>
                 <input type="text" id="first_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -117,7 +116,6 @@
                     required />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900">入力内容は間違いございません。</label> -->
-        </div>
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">提出</button>
     </form>
