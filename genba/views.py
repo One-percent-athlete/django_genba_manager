@@ -2,10 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 import calendar
 import datetime
+import csv, urllib
 x = datetime.datetime.now()
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
@@ -225,8 +227,23 @@ def delete_report(request, report_id):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-
+@login_required(login_url='/login/')
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
+    latest_time = DailyReport.objects.latest("updated_at")
+    date_time = latest_time.updated_at
+    str_time = date_time.strftime('%Y%m%d%H%M')
+    f = "現場毎作業日報" + "_" + str_time + ".csv"
+    daily_report_list = DailyReport.objects.all()
+    filename = urllib.parse.quote((f).encode("utf8"))
+    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
+    writer = csv.writer(response)
+    for evaluation in daily_report_list:
+        writer.writerow([evaluation.name, evaluation.genba,evaluation.note,evaluation.date_created])
+    return response
 
 
 
     
+
+   
