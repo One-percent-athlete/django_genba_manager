@@ -77,7 +77,6 @@ class GenbaForm(forms.ModelForm):
 			'end_date': '作業終了日' 
 		}
 
-
 class DailyReportForm(forms.ModelForm):
 	PAYMENT_TYPES = (
         ('現金','現金'),
@@ -119,3 +118,4 @@ class DailyReportForm(forms.ModelForm):
 		   'start_time': '作業開始時間',
 		   'end_time': '作業終了時間',
            }
+		
