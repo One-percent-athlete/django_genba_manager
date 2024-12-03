@@ -73,8 +73,6 @@ class GenbaForm(forms.ModelForm):
 			'attendees': '作業員',
 			'name': '現場名',
 			'client': '取引先',
-			'start_date': '作業開始日',
-			'end_date': '作業終了日' 
 		}
 
 class DailyReportForm(forms.ModelForm):
@@ -115,7 +113,5 @@ class DailyReportForm(forms.ModelForm):
 		   'other_payment': 'その他使ったもの',
 		   'other_payment_amount': '使った金額', 
 		   'kentaikyo':'建退共',
-		   'start_time': '作業開始時間',
-		   'end_time': '作業終了時間',
            }
 		
