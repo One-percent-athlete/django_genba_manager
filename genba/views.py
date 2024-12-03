@@ -230,7 +230,7 @@ def schedule_details(request):
 
 @login_required(login_url='/login/')
 def export_csv(request):
-    response = HttpResponse(content_type='text/csv; charset=CP932')
+    response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
     latest_time = DailyReport.objects.latest("date_created")
     date_time = latest_time.date_created.date()
     str_time = date_time.strftime('%Y/%m/%d')
