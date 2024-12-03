@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import calendar
 import datetime
 import csv, urllib
+import io
 x = datetime.datetime.now()
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
@@ -229,7 +230,7 @@ def schedule_details(request):
 
 @login_required(login_url='/login/')
 def export_csv(request):
-    response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
     latest_time = DailyReport.objects.latest("date_created")
     date_time = latest_time.date_created.date()
     str_time = date_time.strftime('%Y/%m/%d')
@@ -237,10 +238,12 @@ def export_csv(request):
     daily_report_list = DailyReport.objects.all()
     filename = urllib.parse.quote((f).encode("utf8"))
     response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
-    writer = csv.writer(response)
+    writer = csv.writer(response, delimiter=",")
     for report in daily_report_list:
         writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created.date()])
     return response
+
+
 
 
 
