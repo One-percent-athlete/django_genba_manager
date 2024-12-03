@@ -44,7 +44,6 @@ class UserProfileForm(forms.ModelForm):
 
 class GenbaForm(forms.ModelForm):
 	COLORS = (
-        ('#808080', '灰色'),
         ('#ff6961', '赤色'),
         ('#ffb480', '橙色'),
         ('#f8f38d', '黄色'),

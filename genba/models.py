@@ -33,6 +33,7 @@ post_save.connect(create_profile, sender=User)
 
 class Genba(models.Model):
     COLORS = (
+        ('#808080', '灰色'),
         ('#ff6961', '赤色'),
         ('#ffb480', '橙色'),
         ('#f8f38d', '黄色'),
