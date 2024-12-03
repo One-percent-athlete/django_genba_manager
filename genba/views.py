@@ -229,17 +229,17 @@ def schedule_details(request):
 
 @login_required(login_url='/login/')
 def export_csv(request):
-    response = HttpResponse(content_type='text/csv; charset=shift-jis')
+    response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
     latest_time = DailyReport.objects.latest("date_created")
-    date_time = latest_time.date_created
-    str_time = date_time.strftime('%Y%m%d%H%M')
+    date_time = latest_time.date_created.date()
+    str_time = date_time.strftime('%Y/%m/%d')
     f = "現場毎作業日報" + "_" + str_time + ".csv"
     daily_report_list = DailyReport.objects.all()
     filename = urllib.parse.quote((f).encode("utf8"))
     response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
     writer = csv.writer(response)
     for report in daily_report_list:
-        writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created])
+        writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created.date()])
     return response
 
 
