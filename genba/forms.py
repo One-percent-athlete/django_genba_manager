@@ -101,8 +101,8 @@ class DailyReportForm(forms.ModelForm):
 	daily_details = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
 	daily_note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'その他連絡事項'}))
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
-	start_time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-	end_time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+	start_time = forms.TimeField(label="作業開始時間", widget=forms.TimeInput(attrs={'type': 'time'}))
+	end_time = forms.TimeField(label="作業終了時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 
 	class Meta:
 		model = DailyReport
