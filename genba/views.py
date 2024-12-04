@@ -46,7 +46,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ("お疲れ様です。"))
+            messages.success(request, (f"{user.profile} さん, お帰りなさい"))
             return redirect("home")
         else:
             messages.success(request, ("ユーザー名、またはパスワードが違います。再度お試しください。"))
@@ -69,7 +69,6 @@ def register_user(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
-            login(request, user)
             messages.success(request, ("プロフィールを入力してください。"))
             return redirect("update_profile", user.pk)
         else:
