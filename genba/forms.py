@@ -93,23 +93,24 @@ class DailyReportForm(forms.ModelForm):
 	highway_end = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'高速道路降りたインター'}))
 	highway_payment = forms.ChoiceField(label="支払い方法", choices=PAYMENT_TYPES, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	parking = forms.Select(attrs={"class":"form-select", "placeholder": "駐車料金"}),
-	paid_by = forms.Select(attrs={"class":"form-select", "placeholder": "建替人"}),
-	hotel = forms.BooleanField(label="宿泊利用", required=False)
+	hotel = forms.Select(attrs={"class":"form-select", "placeholder": "宿泊料金"}),
 	other_payment = forms.BooleanField(label="その他経費", required=False),
 	other_payment_amount = forms.Select(attrs={"class":"form-select", "placeholder": "金額"}),
-	daily_details = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'作業内容'}))
-	daily_note = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'その他連絡事項'}))
+	paid_by = forms.Select(attrs={"class":"form-select", "placeholder": "建替人"}),
+	daily_details = forms.CharField(label="作業内容", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+	daily_note = forms.CharField(label="その他連絡事項", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
 	start_time = forms.TimeField(label="作業開始時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 	end_time = forms.TimeField(label="作業終了時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 
 	class Meta:
 		model = DailyReport
-		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking','paid_by', 'hotel', 'other_payment', 'other_payment_amount', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
+		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking', 'hotel', 'other_payment', 'other_payment_amount', 'paid_by', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
 		labels = {
            'genba':'現場名',
            'distance':'走行距離数',
            'parking':'駐車場利用料金（利用した場合のみ）',
+           'hotel':'宿泊利用料金（利用した場合のみ）',
 		   'paid_by': '建替人',
 		   'other_payment': 'その他使ったもの',
 		   'other_payment_amount': '使った金額', 
