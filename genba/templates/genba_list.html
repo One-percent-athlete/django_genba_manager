@@ -21,7 +21,10 @@
                         場所
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        作業員の長
+                        職長
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        同行者
                     </th>
                     <th scope="col" class="px-6 py-3">
                         作業開始日
@@ -55,6 +58,11 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.head_person }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% for a in genba.attendees.all %}
+                        {{ a }}
+                        {% endfor %}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.start_date | date:"Y-m-j" }}
@@ -95,7 +103,10 @@
                         場所
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        作業員の長
+                        職長
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        同行者
                     </th>
                     <th scope="col" class="px-6 py-3">
                         作業開始日
@@ -129,6 +140,11 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.head_person }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% for a in genba.attendees.all %}
+                        {{ a }}
+                        {% endfor %}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.start_date | date:"Y-m-j" }}
