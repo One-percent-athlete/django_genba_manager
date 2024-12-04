@@ -13,6 +13,15 @@ x = datetime.datetime.now()
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 
+
+###TODOLIST
+# csvボタン
+# csvフィルター
+# 下請けの権限
+# カレンダー表示エラー
+# 本日の作業は本日の分のみ表示
+
+
 @login_required(login_url='/login_user/')
 def home(request):
     if request.user.is_authenticated:
@@ -231,16 +240,20 @@ def schedule_details(request):
 def export_csv(request):
     response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
     latest_time = DailyReport.objects.latest("date_created")
-    date_time = latest_time.date_created.date()
-    str_time = date_time.strftime('%Y/%m/%d')
-    f = "現場毎作業日報" + "_" + str_time + ".csv"
-    daily_report_list = DailyReport.objects.all()
-    filename = urllib.parse.quote((f).encode("utf8"))
-    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
-    writer = csv.writer(response, delimiter=",")
-    for report in daily_report_list:
-        writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created.date()])
-    return response
+    if latest_time:
+        date_time = latest_time.date_created.date()
+        str_time = date_time.strftime('%Y/%m/%d')
+        f = "現場毎作業日報" + "_" + str_time + ".csv"
+        daily_report_list = DailyReport.objects.all()
+        filename = urllib.parse.quote((f).encode("utf8"))
+        response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
+        writer = csv.writer(response, delimiter=",")
+        for report in daily_report_list:
+            writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created.date()])
+        return response
+    else:
+        messages.success(request, "データが見つかりません。")
+        return redirect("report_list")
 
 
 
