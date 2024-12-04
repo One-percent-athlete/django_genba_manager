@@ -54,7 +54,7 @@ class Genba(models.Model):
     start_date = models.DateTimeField("Start date")
     end_date = models.DateTimeField("End date")
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} - {self.client}"
@@ -71,7 +71,7 @@ class Genba(models.Model):
 class Notification(models.Model):
     author = models.ForeignKey(User, related_name="notification", on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
-    created_at = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f"{self.content} - {self.author} - {self.created_at}"
@@ -103,7 +103,6 @@ class DailyReport(models.Model):
     kentaikyo = models.BooleanField(default=False)
     start_time = models.TimeField('作業終了日')
     end_time = models.TimeField('作業終了日')
-    created_at = models.DateTimeField(auto_now=True)
 
     @property
     def Is_past(self):
