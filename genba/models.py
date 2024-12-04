@@ -93,7 +93,7 @@ class DailyReport(models.Model):
     highway_payment = models.CharField(max_length=50, choices=PAYMENT_TYPES, blank=True)
     parking = models.CharField(max_length=100, blank=True)
     paid_by = models.ForeignKey(Profile, related_name="paid_by", on_delete=models.CASCADE, null=True, blank=True)
-    hotel = models.BooleanField(default=False)
+    hotel = models.CharField(max_length=100, blank=True)
     other_payment = models.CharField(max_length=100, blank=True)
     other_payment_amount = models.CharField(max_length=100, blank=True)
     daily_details = models.CharField(max_length=500, blank=True)
