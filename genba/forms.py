@@ -28,12 +28,11 @@ class SignUpForm(UserCreationForm):
     
 class UserProfileForm(forms.ModelForm):
 	CHOICE = [
-       	('元請', '元請'),
+       	('下請け', '下請け'),
         ('正社員', '正社員'),
         ('管理', '管理'),]
-	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'お名前フルねーム、スペースなし'}))
-	fullname = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'お名前フルねーム、スペースなし'}))
-	phone = forms.CharField(label="携帯電話番号", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'携帯電話番号'}))
+	fullname = forms.CharField(label="お名前フルネーム", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'スペースなし'}))
+	phone = forms.CharField(label="携帯電話番号", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'07012345678'}))
 	note = forms.CharField(label="備考欄", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'注意事項'}))
 	contract_type = forms.ChoiceField(label="雇用形態", choices=CHOICE, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	is_active = forms.BooleanField(label="現役中", required=False)
@@ -54,8 +53,8 @@ class GenbaForm(forms.ModelForm):
         ('#9d94ff', '紫色'),
         ('#c780e8', '桃色'),
     )
-	head_person = forms.Select(attrs={"class":"form-select", "placeholder": "現場の長"}),
-	attendees = forms.SelectMultiple(attrs={"class":"form-control", "placeholder": "その他作業員"}),
+	head_person = forms.Select(attrs={"class":"form-select"}),
+	attendees = forms.SelectMultiple(attrs={"class":"form-control"}),
 	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
 	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
 	address = forms.CharField(label="場所", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -70,8 +69,8 @@ class GenbaForm(forms.ModelForm):
 		model = Genba
 		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date', 'color')
 		labels = {
-			'head_person':'現場の長',
-			'attendees': '作業員',
+			'head_person':'職長',
+			'attendees': '同行者',
 			'name': '現場名',
 			'client': '取引先',
 		}

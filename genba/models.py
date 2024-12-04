@@ -7,11 +7,11 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     CONTRACT_TYPES = (
-        ('元請', '元請'),
+        ('下請け', '下請け'),
         ('正社員', '正社員'),
         ('管理', '管理'),
     )
-    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, default='管理')
+    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPES, default='正社員')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=20, blank=True)
     phone = models.CharField(max_length=20, blank=True)
