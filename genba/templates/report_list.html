@@ -27,7 +27,10 @@
                         建退共
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        現場の長
+                        職長
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        同行者
                     </th>
                     <th scope="col" class="px-6 py-3">
                         シフト
@@ -87,10 +90,19 @@
                     {{ report.genba.client }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    {{ report.kentaikyo}}
+                    {% if report.kentaikyo %}
+                    有
+                    {% else %}
+                    無
+                    {% endif %}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.genba.head_person }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {% for a in report.genba.attendees.all %}
+                    {{ a }}
+                    {% endfor %}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.shift }}
@@ -163,7 +175,10 @@
                         建退共
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        現場の長
+                        職長
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        同行者
                     </th>
                     <th scope="col" class="px-6 py-3">
                         シフト
@@ -223,10 +238,19 @@
                     {{ report.genba.client }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    {{ report.kentaikyo}}
+                    {% if report.kentaikyo %}
+                    有
+                    {% else %}
+                    無
+                    {% endif %}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.genba.head_person }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {% for a in report.genba.attendees.all %}
+                    {{ a }}
+                    {% endfor %}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.shift }}
