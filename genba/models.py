@@ -53,7 +53,7 @@ class Genba(models.Model):
     note = models.CharField("Note", max_length=255, blank=True, null=True)
     start_date = models.DateTimeField("Start date")
     end_date = models.DateTimeField("End date")
-    is_active = models.BooleanField(default=True)
+    finished = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
