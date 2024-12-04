@@ -106,13 +106,13 @@ def delete_user(request, user_id):
 
 @login_required(login_url='/login_user/')
 def profile_list(request):
-    profiles = Profile.objects.all()
+    profiles = Profile.objects.all().order_by('date_created')
     contract = request.user.profile.contract_type
     return render(request, "profile_list.html", { "profiles": profiles, "contract": contract })
 
 @login_required(login_url='/login_user/')
 def schedule(request):
-    genbas = Genba.objects.all()
+    genbas = Genba.objects.all().order_by('date_created')
     year = int(x.year)
     month = int(x.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
@@ -131,7 +131,7 @@ def schedule(request):
 
 @login_required(login_url='/login_user/')
 def genba_list(request):   
-    genbas = Genba.objects.all()
+    genbas = Genba.objects.all().order_by('date_created')
     return render(request, "genba_list.html", {"genbas": genbas})
 
 @login_required(login_url='/login_user/')
@@ -179,7 +179,7 @@ def delete_genba(request, genba_id):
     
 @login_required(login_url='/login_user/')
 def report_list(request):
-    reports = DailyReport.objects.all()
+    reports = DailyReport.objects.all().order_by('date_created')
     return render(request, "report_list.html", { 'reports': reports })
 
 @login_required
