@@ -7,7 +7,10 @@
 <div class="p-4 sm:ml-64">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="px-auto">
-            <h1 class="text-4xl py-10">作業員一覧<a class="pl-8" href="{% url 'register_user' %}">＋</a>
+            <h1 class="text-4xl py-10">作業員一覧
+                {% if contract == "管理" %}
+                <a class="pl-8" href="{% url 'register_user' %}">＋</a>
+                {% endif %}
             </h1>
             <h2 class="text-6xl m-0 mr-3"></h2>
         </div>

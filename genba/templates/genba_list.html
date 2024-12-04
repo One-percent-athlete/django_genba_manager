@@ -46,7 +46,7 @@
             <tbody>
                 {% if genbas %}
                 {% for genba in genbas %}
-                {% if genba.is_active == True or genba.Is_past == "Future" %}
+                {% if genba.finished == False or genba.Is_past == "Future" %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="{% url 'genba_details' genba.id %}">
@@ -128,7 +128,7 @@
             <tbody>
                 {% if genbas %}
                 {% for genba in genbas %}
-                {% if genba.is_active == False or genba.Is_past == "Past" %}
+                {% if genba.finished == True or genba.Is_past == "Past" %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="{% url 'genba_details' genba.id %}">
