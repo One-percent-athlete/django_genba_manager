@@ -16,7 +16,7 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 ###TODOLIST
 # csvボタン ok
 # 下請けの権限 ok
-# 各ページの ＋ の padding and margin 
+# 各ページの ＋ の padding and margin ok
 # csvフィルター 
 # カレンダー表示エラー 
 # 本日の作業は本日の分のみ表示 
