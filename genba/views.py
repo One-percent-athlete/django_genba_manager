@@ -26,6 +26,7 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 def home(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('date_created')
+        print(genba_list)
         genbas = []
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
@@ -78,36 +79,44 @@ def logout_user(request):
     return redirect("login_user")
 
 def register_user(request):
-    form = SignUpForm()
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            user = authenticate(username=username, password=password)
-            messages.success(request, ("プロフィールを入力してください。"))
-            return redirect("update_profile", user.pk)
+    if request.user.is_superuser:
+        form = SignUpForm()
+        if request.method == "POST":
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password1"]
+                user = authenticate(username=username, password=password)
+                messages.success(request, ("プロフィールを入力してください。"))
+                return redirect("update_profile", user.pk)
+            else:
+                messages.success(request, ("再度お試しください。"))
+                return redirect("register_user")
         else:
-            messages.success(request, ("再度お試しください。"))
-            return redirect("register_user")
+            return render(request, "authenticate/register_user.html", {
+                "form": form
+            })
     else:
-        return render(request, "authenticate/register_user.html", {
-            "form": form
-        })
-
+        messages.success(request, ("ページは管理人のみがアクセスできます。"))
+        return redirect("login_user")
+    
 def update_profile(request, profile_id):
-    if request.user.is_authenticated:
-        profile = Profile.objects.get(id=profile_id)
-        form = UserProfileForm(request.POST or None, instance=profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "プロフィールを更新しました。")
-            return redirect("profile_list")
-        return render(request, "update_profile.html", {"form": form , "profile": profile })
+    if request.user.is_superuser:
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(id=profile_id)
+            form = UserProfileForm(request.POST or None, instance=profile)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "プロフィールを更新しました。")
+                return redirect("profile_list")
+            return render(request, "update_profile.html", {"form": form , "profile": profile })
+        else:
+            messages.success(request, "ログインしてください。")
+            return redirect("login_user")
     else:
-        messages.success(request, "ログインしてください。")
-        return redirect("login")
+        messages.success(request, ("ページは管理人のみがアクセスできます。"))
+        return redirect("login_user")
     
 def delete_user(request, user_id):
     if request.user.is_authenticated:
@@ -162,7 +171,7 @@ def genba_details(request, genba_id):
         return render(request, "genba_details.html", {"form": form , "genba": genba })
     else:
         messages.success(request, "ログインしてください。")
-        return redirect("login")
+        return redirect("login_user")
 
 @login_required
 def add_genba(request):
@@ -191,7 +200,7 @@ def delete_genba(request, genba_id):
         return redirect("genba_list")
     else:
         messages.success(request, "ログインしてください。")
-        return redirect("login")
+        return redirect("login_user")
     
 @login_required(login_url='/login_user/')
 def report_list(request):
@@ -227,7 +236,7 @@ def report_details(request, report_id):
         return render(request, "report_details.html", {"form": form , "report": report })
     else:
         messages.success(request, "ログインしてください。")
-        return redirect("login")
+        return redirect("login_user")
     
 @login_required
 def delete_report(request, report_id):
