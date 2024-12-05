@@ -277,7 +277,7 @@ def delete_report(request, report_id):
         return redirect("report_list")
     else:
         messages.success(request, "ログインしてください。")
-        return redirect("login")
+        return redirect("login_user")
 
 @login_required(login_url='/login/')
 def schedule_details(request):
