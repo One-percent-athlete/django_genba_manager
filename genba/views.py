@@ -25,14 +25,22 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 @login_required(login_url='/login_user/')
 def home(request):
     if request.user.is_authenticated:
+        genba_list = Genba.objects.all().order_by('date_created')
+        genbas = []
+        if request.user.profile.contract_type == '下請け':
+            for genba in genba_list:
+                if genba.head_person == request.user.profile:
+                    genbas.append(genba)
+                elif request.user.profile in genba.attendees.all():
+                    genbas.append(genba)
+        else:
+            genbas = genba_list
         if request.method == "POST":
             content = request.POST.get("content")
             author = User.objects.get(id=request.user.id)
             notification = Notification.objects.create(content=content, author=author)
             notification.save()
-        genbas = Genba.objects.all().order_by('date_created')
         notifications = Notification.objects.all().order_by('date_created')
-        reports = DailyReport.objects.all().order_by('date_created')
         return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
     else:
         messages.success(request, "ログインしてください。")
