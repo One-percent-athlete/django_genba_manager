@@ -167,7 +167,18 @@ def schedule(request):
 
 @login_required(login_url='/login_user/')
 def genba_list(request):   
-    genbas = Genba.objects.all().order_by('date_created')
+    if request.user.is_authenticated:
+        genba_list = Genba.objects.all().order_by('date_created')
+        print(genba_list)
+        genbas = []
+        if request.user.profile.contract_type == '下請け':
+            for genba in genba_list:
+                if genba.head_person == request.user.profile:
+                    genbas.append(genba)
+                elif request.user.profile in genba.attendees.all():
+                    genbas.append(genba)
+        else:
+            genbas = genba_list
     return render(request, "genba_list.html", {"genbas": genbas})
 
 @login_required(login_url='/login_user/')
@@ -215,7 +226,17 @@ def delete_genba(request, genba_id):
     
 @login_required(login_url='/login_user/')
 def report_list(request):
-    reports = DailyReport.objects.all().order_by('date_created')
+    if request.user.is_authenticated:
+        reports_list = DailyReport.objects.all().order_by('date_created')
+        reports = []
+        if request.user.profile.contract_type == '下請け':
+            for report in reports_list:
+                if report.genba.head_person == request.user.profile:
+                    reports.append(report)
+                elif request.user.profile in reports.genba.attendees.all():
+                    reports.append(report)
+        else:
+            reports = reports_list
     return render(request, "report_list.html", { 'reports': reports })
 
 @login_required
