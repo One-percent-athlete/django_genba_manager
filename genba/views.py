@@ -137,7 +137,18 @@ def profile_list(request):
 
 @login_required(login_url='/login_user/')
 def schedule(request):
-    genbas = Genba.objects.all().order_by('date_created')
+    if request.user.is_authenticated:
+        genba_list = Genba.objects.all().order_by('date_created')
+        print(genba_list)
+        genbas = []
+        if request.user.profile.contract_type == '下請け':
+            for genba in genba_list:
+                if genba.head_person == request.user.profile:
+                    genbas.append(genba)
+                elif request.user.profile in genba.attendees.all():
+                    genbas.append(genba)
+        else:
+            genbas = genba_list
     year = int(x.year)
     month = int(x.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
