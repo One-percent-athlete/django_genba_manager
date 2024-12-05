@@ -6,27 +6,25 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 import calendar
-import datetime
 import csv, urllib
-import io
+import datetime
 x = datetime.datetime.now()
+
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 
-
 ###TODOLIST
 # csvボタン ok
-# csvフィルター
-# 下請けの権限 
-# カレンダー表示エラー
-# 本日の作業は本日の分のみ表示
-
+# 下請けの権限 ok
+# 各ページの ＋ の padding and margin 
+# csvフィルター 
+# カレンダー表示エラー 
+# 本日の作業は本日の分のみ表示 
 
 @login_required(login_url='/login_user/')
 def home(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('date_created')
-        print(genba_list)
         genbas = []
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
