@@ -15,9 +15,9 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 
 
 ###TODOLIST
-# csvボタン
+# csvボタン ok
 # csvフィルター
-# 下請けの権限
+# 下請けの権限 
 # カレンダー表示エラー
 # 本日の作業は本日の分のみ表示
 
