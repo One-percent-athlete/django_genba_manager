@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 import calendar
 import csv, urllib
 import datetime
-x = datetime.datetime.now()
+datetime = datetime.datetime.now()
 
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
@@ -147,8 +147,8 @@ def schedule(request):
                     genbas.append(genba)
         else:
             genbas = genba_list
-    year = int(x.year)
-    month = int(x.month)
+    year = int(datetime.year)
+    month = int(datetime.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
     cal = cal.replace('<td ', '<td width="150" height="150" hover')
     cal = mark_safe(cal)
