@@ -26,8 +26,7 @@
                 [
                     {% for genba in genbas %}
                     {
-                title: '{{ genba.name }} : {{ genba.head_person }} {% for u in genba.attendees.all %} , {{ u }} {% endfor %}',
-
+                title: '{{ genba.name }} : {{ genba.head_person }} {% for a in genba.attendees.all %} , {{ a }} {% endfor %}',
                 start: '{{ genba.start_date | date:"Y-m-j" }}',
                 end: '{{ genba.end_date | date:"Y-m-j" }}',
                 color: '{{ genba.color }}',

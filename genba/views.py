@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 import calendar
 import csv, urllib
 import datetime
-datetime = datetime.datetime.now()
+now = datetime.datetime.now()
 
 from .models import Profile, Genba, Notification, DailyReport
 from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
@@ -137,8 +137,18 @@ def profile_list(request):
 def schedule(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('date_created')
-        print(genba_list)
         genbas = []
+        for genba in genba_list:
+            print(genba.start_date.strftime("%Y-%M-%d"))
+            print(genba.end_date.strftime("%Y-%M-%d"))
+            print(now.strftime("%Y-%M-%d"))
+            date = datetime.datetime(now.year, now.month, now.day)
+            start_date = datetime.datetime(genba.start_date.year, genba.start_date.month, genba.start_date.day)
+            end_date = datetime.datetime(genba.end_date.year, genba.end_date.month, genba.end_date.day)
+            if start_date <= date <= end_date:
+                genbas.append(genba)
+            else:
+                print("Date is outside the range.")
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
                 if genba.head_person == request.user.profile:
@@ -147,8 +157,10 @@ def schedule(request):
                     genbas.append(genba)
         else:
             genbas = genba_list
-    year = int(datetime.year)
-    month = int(datetime.month)
+        
+
+    year = int(now.year)
+    month = int(now.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
     cal = cal.replace('<td ', '<td width="150" height="150" hover')
     cal = mark_safe(cal)
