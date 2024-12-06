@@ -253,7 +253,7 @@ def report_list(request):
             for report in reports_list:
                 if report.genba.head_person == request.user.profile:
                     reports.append(report)
-                elif request.user.profile in reports.genba.attendees.all():
+                elif request.user.profile in report.genba.attendees.all():
                     reports.append(report)
         else:
             reports = reports_list
