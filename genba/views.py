@@ -18,8 +18,9 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 # 下請けの権限 ok
 # 各ページの ＋ の padding and margin ok
 # 本日の作業は本日の分のみ表示 ok
+# カレンダー表示エラー ok
 # csvフィルター 
-# カレンダー表示エラー 
+# csv出力
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -182,6 +183,23 @@ def genba_list(request):
         else:
             genbas = genba_list
     return render(request, "genba_list.html", {"genbas": genbas})
+
+@login_required(login_url='/login_user/')
+def profile_genba(request):   
+    if request.user.is_authenticated:
+        profiles = Profile.objects.all()
+        genba_list = Genba.objects.all().order_by('date_created')
+        print(genba_list)
+        genbas = []
+        if request.user.profile.contract_type == '下請け':
+            for genba in genba_list:
+                if genba.head_person == request.user.profile:
+                    genbas.append(genba)
+                elif request.user.profile in genba.attendees.all():
+                    genbas.append(genba)
+        else:
+            genbas = genba_list
+    return render(request, "profile_genba.html", {"genbas": genbas})
 
 @login_required(login_url='/login_user/')
 def genba_details(request, genba_id):

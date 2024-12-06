@@ -14,6 +14,7 @@ urlpatterns = [
     path('delete_user/<int:user_id>/', views.delete_user, name="delete_user"),
     
     path('genba_list/', views.genba_list, name="genba_list"),
+    path('profile_genba/', views.profile_genba, name="profile_genba"),
     path('add_genba/', views.add_genba, name="add_genba"),
     path('delete_genba/<int:genba_id>/', views.delete_genba, name="delete_genba"),
     path('genba_details/<int:genba_id>/', views.genba_details, name="genba_details"),
