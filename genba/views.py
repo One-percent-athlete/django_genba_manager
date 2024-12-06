@@ -43,7 +43,7 @@ def home(request):
             notification = Notification.objects.create(content=content, author=author)
             notification.save()
         notifications = Notification.objects.all().order_by('-date_created')
-        return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
+        return render(request, "home.html", {"genba_list":genba_list, "genbas": genbas, "notifications": notifications})
     else:
         messages.success(request, "ログインしてください。")
         return redirect("login_user")

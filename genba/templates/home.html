@@ -73,6 +73,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if request.user.profile.contract_type == '下請け' %}
                 {% if genbas %}
                 {% for genba in genbas %}
                 <tr class="border-b">
@@ -104,6 +105,40 @@
                     </td>
                 </tr>
                 {% endfor %}
+                {% endif %}
+                {% else %}
+                {% if genbas %}
+                {% for genba in genba_list %}
+                <tr class="border-b">
+                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
+                        <a href="{% url 'genba_details' genba.id %}">
+                            {{ genba.name }}
+                        </a>
+                    </th>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ genba.address }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ genba.head_person }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% for a in genba.attendees.all %}
+                        {{ a }}
+                        {% endfor %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ genba.job_description }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ genba.note }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="{% url 'genba_details' genba.id %}"
+                            class="font-medium text-blue-600 hover:underline">編集</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
                 {% endif %}
             </tbody>
         </table>
