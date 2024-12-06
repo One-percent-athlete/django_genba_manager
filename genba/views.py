@@ -26,14 +26,16 @@ def home(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('date_created')
         genbas = []
-        if request.user.profile.contract_type == '下請け':
-            for genba in genba_list:
-                if genba.head_person == request.user.profile:
-                    genbas.append(genba)
-                elif request.user.profile in genba.attendees.all():
-                    genbas.append(genba)
-        else:
-            genbas = genba_list
+        for genba in genba_list:
+            date = datetime.datetime(now.year, now.month, now.day)
+            start_date = datetime.datetime(genba.start_date.year, genba.start_date.month, genba.start_date.day)
+            end_date = datetime.datetime(genba.end_date.year, genba.end_date.month, genba.end_date.day)
+            if start_date <= date <= end_date:
+                genbas.append(genba)
+                if request.user.profile.contract_type == '下請け':
+                    for genba in genba_list:
+                        if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
+                            genbas.pop(genba)
         if request.method == "POST":
             content = request.POST.get("content")
             author = User.objects.get(id=request.user.id)
