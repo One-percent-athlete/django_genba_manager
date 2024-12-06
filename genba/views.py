@@ -34,9 +34,9 @@ def home(request):
             if start_date <= date <= end_date:
                 genbas.append(genba)
                 if request.user.profile.contract_type == '下請け':
-                    for genba in genba_list:
-                        if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
-                            genbas.pop(genba)
+                    for genba in genbas:
+                        if genba.head_person != request.user.profile or request.user.profile not in genba.attendees.all():
+                            genbas.remove(genba)
         if request.method == "POST":
             content = request.POST.get("content")
             author = User.objects.get(id=request.user.id)
@@ -148,9 +148,9 @@ def schedule(request):
             if start_date <= date <= end_date:
                 genbas.append(genba)
                 if request.user.profile.contract_type == '下請け':
-                    for genba in genba_list:
-                        if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
-                            genbas.pop(genba)
+                    for genba in genbas:
+                        if genba.head_person != request.user.profile or request.user.profile not in genba.attendees.all():
+                            genbas.remove(genba)
     year = int(now.year)
     month = int(now.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
