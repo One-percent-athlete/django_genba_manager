@@ -25,7 +25,7 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 @login_required(login_url='/login_user/')
 def home(request):
     if request.user.is_authenticated:
-        genba_list = Genba.objects.all().order_by('date_created')
+        genba_list = Genba.objects.all().order_by('-date_created')
         genbas = []
         for genba in genba_list:
             date = datetime.datetime(now.year, now.month, now.day)
@@ -42,7 +42,7 @@ def home(request):
             author = User.objects.get(id=request.user.id)
             notification = Notification.objects.create(content=content, author=author)
             notification.save()
-        notifications = Notification.objects.all().order_by('date_created')
+        notifications = Notification.objects.all().order_by('-date_created')
         return render(request, "home.html", {"genbas": genbas, "notifications": notifications})
     else:
         messages.success(request, "ログインしてください。")
@@ -132,14 +132,14 @@ def delete_user(request, user_id):
 
 @login_required(login_url='/login_user/')
 def profile_list(request):
-    profiles = Profile.objects.all().order_by('date_created')
+    profiles = Profile.objects.all().order_by('-date_created')
     contract = request.user.profile.contract_type
     return render(request, "profile_list.html", { "profiles": profiles, "contract": contract })
 
 @login_required(login_url='/login_user/')
 def schedule(request):
     if request.user.is_authenticated:
-        genba_list = Genba.objects.all().order_by('date_created')
+        genba_list = Genba.objects.all().order_by('-date_created')
         genbas = []
         for genba in genba_list:
             date = datetime.datetime(now.year, now.month, now.day)
@@ -171,7 +171,7 @@ def schedule(request):
 @login_required(login_url='/login_user/')
 def genba_list(request):   
     if request.user.is_authenticated:
-        genba_list = Genba.objects.all().order_by('date_created')
+        genba_list = Genba.objects.all().order_by('-date_created')
         print(genba_list)
         genbas = []
         if request.user.profile.contract_type == '下請け':
@@ -188,7 +188,7 @@ def genba_list(request):
 def profile_genba(request):   
     if request.user.is_authenticated:
         profiles = Profile.objects.all()
-        genba_list = Genba.objects.all().order_by('date_created')
+        genba_list = Genba.objects.all().order_by('-date_created')
         print(genba_list)
         genbas = []
         if request.user.profile.contract_type == '下請け':
@@ -247,7 +247,7 @@ def delete_genba(request, genba_id):
 @login_required(login_url='/login_user/')
 def report_list(request):
     if request.user.is_authenticated:
-        reports_list = DailyReport.objects.all().order_by('date_created')
+        reports_list = DailyReport.objects.all().order_by('-date_created')
         reports = []
         if request.user.profile.contract_type == '下請け':
             for report in reports_list:
@@ -308,7 +308,7 @@ def schedule_details(request):
 @login_required(login_url='/login/')
 def export_csv(request):
     response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
-    latest_time = DailyReport.objects.latest("date_created")
+    latest_time = DailyReport.objects.latest("-date_created")
     if latest_time:
         date_time = latest_time.date_created.date()
         str_time = date_time.strftime('%Y/%m/%d')
