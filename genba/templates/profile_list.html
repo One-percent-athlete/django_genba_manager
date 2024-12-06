@@ -5,6 +5,8 @@
 
 {% block content %}
 <div class="p-4 sm:ml-64">
+    {% if contract == "下請け" %}
+    {% else %}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="px-auto">
             <h1 class="text-4xl py-10">作業員一覧
@@ -133,5 +135,6 @@
             </tbody>
         </table>
     </div>
+    {% endif %}
 </div>
 {% endblock content %}

@@ -48,6 +48,7 @@ def home(request):
         messages.success(request, "ログインしてください。")
         return redirect("login_user")
 
+@login_required(login_url='/login_user/')
 def delete_notification(request, notification_id):
     if request.user.is_authenticated:
         notification = Notification.objects.get(id=notification_id)
@@ -79,6 +80,7 @@ def logout_user(request):
     messages.success(request, ("ログアウトしました。"))
     return redirect("login_user")
 
+@login_required(login_url='/login_user/')
 def register_user(request):
     if request.user.is_superuser:
         form = SignUpForm()
@@ -101,7 +103,7 @@ def register_user(request):
     else:
         messages.success(request, ("ページは管理人のみがアクセスできます。"))
         return redirect("login_user")
-    
+
 def update_profile(request, profile_id):
     if request.user.is_superuser:
         if request.user.is_authenticated:
@@ -119,6 +121,7 @@ def update_profile(request, profile_id):
         messages.success(request, ("ページは管理人のみがアクセスできます。"))
         return redirect("login_user")
     
+@login_required(login_url='/login_user/')
 def delete_user(request, user_id):
     if request.user.is_authenticated:
         current_user = Profile.objects.get(user__id=user_id)
@@ -189,7 +192,6 @@ def profile_genba(request):
     if request.user.is_authenticated:
         profiles = Profile.objects.all()
         genba_list = Genba.objects.all().order_by('-date_created')
-        print(genba_list)
         genbas = []
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
@@ -215,7 +217,7 @@ def genba_details(request, genba_id):
         messages.success(request, "ログインしてください。")
         return redirect("login_user")
 
-@login_required
+@login_required(login_url='/login_user/')
 def add_genba(request):
     form = GenbaForm()
     if request.method == "POST":
@@ -232,7 +234,7 @@ def add_genba(request):
             "form": form
         })
 
-@login_required
+@login_required(login_url='/login_user/')
 def delete_genba(request, genba_id):
     if request.user.is_authenticated:
         current_genba = Genba.objects.get(id=genba_id)
@@ -259,7 +261,7 @@ def report_list(request):
             reports = reports_list
     return render(request, "report_list.html", { 'reports': reports })
 
-@login_required
+@login_required(login_url='/login_user/')
 def add_report(request):
     form = DailyReportForm()
     if request.method == "POST":
@@ -290,7 +292,7 @@ def report_details(request, report_id):
         messages.success(request, "ログインしてください。")
         return redirect("login_user")
     
-@login_required
+@login_required(login_url='/login_user/')
 def delete_report(request, report_id):
     if request.user.is_authenticated:
         report = DailyReport.objects.get(id=report_id)
