@@ -140,17 +140,17 @@ def profile_list(request):
 def schedule(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('-date_created')
-        genbas = []
+        genbas_today = []
         for genba in genba_list:
             date = datetime.datetime(now.year, now.month, now.day)
             start_date = datetime.datetime(genba.start_date.year, genba.start_date.month, genba.start_date.day)
             end_date = datetime.datetime(genba.end_date.year, genba.end_date.month, genba.end_date.day)
             if start_date <= date <= end_date:
-                genbas.append(genba)
+                genbas_today.append(genba)
                 if request.user.profile.contract_type == '下請け':
-                    for genba in genbas:
+                    for genba in genbas_today:
                         if genba.head_person != request.user.profile or request.user.profile not in genba.attendees.all():
-                            genbas.remove(genba)
+                            genbas_today.remove(genba)
     year = int(now.year)
     month = int(now.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
@@ -159,7 +159,7 @@ def schedule(request):
     if request.user.is_authenticated:
          context = {
             "genba_list": genba_list,
-            "genbas":genbas,
+            "genbas_today":genbas_today,
             "year": year,
             "month": month,
             "cal": cal,
