@@ -139,26 +139,15 @@ def schedule(request):
         genba_list = Genba.objects.all().order_by('date_created')
         genbas = []
         for genba in genba_list:
-            print(genba.start_date.strftime("%Y-%M-%d"))
-            print(genba.end_date.strftime("%Y-%M-%d"))
-            print(now.strftime("%Y-%M-%d"))
             date = datetime.datetime(now.year, now.month, now.day)
             start_date = datetime.datetime(genba.start_date.year, genba.start_date.month, genba.start_date.day)
             end_date = datetime.datetime(genba.end_date.year, genba.end_date.month, genba.end_date.day)
             if start_date <= date <= end_date:
                 genbas.append(genba)
-            else:
-                print("Date is outside the range.")
-        if request.user.profile.contract_type == '下請け':
-            for genba in genba_list:
-                if genba.head_person == request.user.profile:
-                    genbas.append(genba)
-                elif request.user.profile in genba.attendees.all():
-                    genbas.append(genba)
-        else:
-            genbas = genba_list
-        
-
+                if request.user.profile.contract_type == '下請け':
+                    for genba in genba_list:
+                        if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
+                            genbas.pop(genba)
     year = int(now.year)
     month = int(now.month)
     cal = calendar.HTMLCalendar().formatmonth(year, month)
@@ -166,6 +155,7 @@ def schedule(request):
     cal = mark_safe(cal)
     if request.user.is_authenticated:
          context = {
+            "genba_list": genba_list,
             "genbas":genbas,
             "year": year,
             "month": month,

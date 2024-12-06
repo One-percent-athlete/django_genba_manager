@@ -24,7 +24,7 @@
             },
             events:
                 [
-                    {% for genba in genbas %}
+                    {% for genba in genba_list %}
                     {
                 title: '{{ genba.name }} : {{ genba.head_person }} {% for a in genba.attendees.all %} , {{ a }} {% endfor %}',
                 start: '{{ genba.start_date | date:"Y-m-j" }}',
