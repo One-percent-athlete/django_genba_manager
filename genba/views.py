@@ -17,9 +17,9 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 # csvボタン ok
 # 下請けの権限 ok
 # 各ページの ＋ の padding and margin ok
+# 本日の作業は本日の分のみ表示 ok
 # csvフィルター 
 # カレンダー表示エラー 
-# 本日の作業は本日の分のみ表示 
 
 @login_required(login_url='/login_user/')
 def home(request):

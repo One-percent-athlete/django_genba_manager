@@ -27,8 +27,8 @@
                     {% for genba in genba_list %}
                     {
                 title: '{{ genba.name }} : {{ genba.head_person }} {% for a in genba.attendees.all %} , {{ a }} {% endfor %}',
-                start: '{{ genba.start_date | date:"Y-m-j" }}',
-                end: '{{ genba.end_date | date:"Y-m-j" }}',
+                start: '{{ genba.start_date | date:"Y-m-d" }}',
+                end: '{{ genba.end_date | date:"Y-m-d" }}',
                 color: '{{ genba.color }}',
             },
             {% endfor %}
