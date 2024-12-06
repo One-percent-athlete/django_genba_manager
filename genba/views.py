@@ -179,9 +179,7 @@ def genba_list(request):
         genbas = []
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
-                if genba.head_person == request.user.profile:
-                    genbas.append(genba)
-                elif request.user.profile in genba.attendees.all():
+                if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
                     genbas.append(genba)
         else:
             genbas = genba_list
@@ -195,9 +193,7 @@ def profile_genba(request):
         genbas = []
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
-                if genba.head_person == request.user.profile:
-                    genbas.append(genba)
-                elif request.user.profile in genba.attendees.all():
+                if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
                     genbas.append(genba)
         else:
             genbas = genba_list
@@ -253,9 +249,7 @@ def report_list(request):
         reports = []
         if request.user.profile.contract_type == '下請け':
             for report in reports_list:
-                if report.genba.head_person == request.user.profile:
-                    reports.append(report)
-                elif request.user.profile in report.genba.attendees.all():
+                if report.genba.head_person == request.user.profile or request.user.profile in report.genba.attendees.all():
                     reports.append(report)
         else:
             reports = reports_list
