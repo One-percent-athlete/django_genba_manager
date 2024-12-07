@@ -70,8 +70,8 @@ class Genba(models.Model):
 
 class Notification(models.Model):
     author = models.ForeignKey(User, related_name="notification", on_delete=models.CASCADE)
-    content = models.CharField(max_length=500)
-    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.CharField("内容", max_length=500)
+    date_created = models.DateTimeField("作成日", auto_now_add=True)
     
     def __str__(self):
         return f"{self.content} - {self.author} - {self.created_at}"
