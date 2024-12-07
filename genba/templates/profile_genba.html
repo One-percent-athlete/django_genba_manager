@@ -7,36 +7,17 @@
 <div class="p-4 sm:ml-64">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="px-auto">
-            <h1 class="text-4xl py-10">作業員毎現場<a class="pl-5" href="{% url 'add_genba' %}">＋</a>
-            </h1>
+            <h1 class="text-4xl py-10">作業員毎現場</h1>
         </div>
         <table class="w-full text-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead
                 class="text-normal text-gray-700 uppercase bg-gray-50 whitespace-nowrap dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        現場名
+                        作業員
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        場所
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        職長
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        同行者
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        作業開始日
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        作業終了予定日
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        作業内容
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        備考
+                        現場
                     </th>
                     <th scope="col" class="px-6 py-3">
                         編集
@@ -53,29 +34,21 @@
                             {{ genba.name }}
                         </a>
                     </th>
+
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.address }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.head_person }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {% for a in genba.attendees.all %}
                         {{ a }}
                         {% endfor %}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.start_date | date:"Y-m-j" }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+
                         {{ genba.end_date | date:"Y-m-j" }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.job_description }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
                         {{ genba.note }}
+
                     </td>
+
                     <td class="px-6 py-4 whitespace-nowrap">
                         <a href="{% url 'genba_details' genba.id %}"
                             class="font-medium text-blue-600 hover:underline">編集</a>
