@@ -301,8 +301,27 @@ def delete_report(request, report_id):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-@login_required(login_url='/login/')
+
 def export_csv(request):
+    latest_time = DailyReport.objects.latest("-date_created")
+    if latest_time:
+        date_time = latest_time.date_created.date()
+        str_time = date_time.strftime('%Y/%m/%d')
+        f = "現場毎作業日報" + "_" + str_time + ".csv"
+        response = HttpResponse(content_type='text/csv')
+        filename = urllib.parse.quote((u'現場毎作業日報.csv').encode('utf-8'))
+        response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'{filename}'
+        
+    writer = csv.writer(response)
+    daily_report_list = DailyReport.objects.all()
+    writer.writerow(["現場日時", "現場", "現場職長", "現場作業員", "現場詳細"])
+    for report in daily_report_list:
+        print([report.genba.name, report.genba.head_person.fullname, report.daily_details, report.date_created.date()])
+        writer.writerow([report.genba.name, report.genba.head_person.fullname, report.daily_details, report.date_created.date()])
+    return response
+
+@login_required(login_url='/login/')
+def some(request):
     response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
     latest_time = DailyReport.objects.latest("-date_created")
     if latest_time:
