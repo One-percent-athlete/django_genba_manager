@@ -25,36 +25,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% if genbas %}
-                {% for genba in genbas %}
-                {% if genba.finished == False or genba.Is_past == "Future" %}
+                {% if profiles %}
+                {% for profile in profiles %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="{% url 'genba_details' genba.id %}">
-                            {{ genba.name }}
+                        <a href="#">
+                            {{ profile }}
                         </a>
                     </th>
 
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.address }}
-                        {{ genba.head_person }}
-                        {% for a in genba.attendees.all %}
-                        {{ a }}
-                        {% endfor %}
-                        {{ genba.start_date | date:"Y-m-j" }}
-
-                        {{ genba.end_date | date:"Y-m-j" }}
-                        {{ genba.job_description }}
-                        {{ genba.note }}
-
+                        safd
                     </td>
 
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{% url 'genba_details' genba.id %}"
-                            class="font-medium text-blue-600 hover:underline">編集</a>
+                        <a href="#" class="font-medium text-blue-600 hover:underline">編集</a>
                     </td>
                 </tr>
-                {% endif %}
                 {% endfor %}
                 {% endif %}
             </tbody>
@@ -99,46 +86,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% if genbas %}
-                {% for genba in genbas %}
-                {% if genba.finished == True or genba.Is_past == "Past" %}
-                <tr class="border-b">
-                    <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                        <a href="{% url 'genba_details' genba.id %}">
-                            {{ genba.name }}
-                        </a>
-                    </th>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.address }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.head_person }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {% for a in genba.attendees.all %}
-                        {{ a }}
-                        {% endfor %}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.start_date | date:"Y-m-j" }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.end_date | date:"Y-m-j" }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.job_description }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ genba.note }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{% url 'genba_details' genba.id %}"
-                            class="font-medium text-blue-600 hover:underline">編集</a>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
+
             </tbody>
         </table>
     </div>

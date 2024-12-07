@@ -66,7 +66,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, (f"{user.profile} さん, お帰りなさい"))
+            messages.success(request, (f"{user.profile} さん, お帰りなさい。"))
             return redirect("home")
         else:
             messages.success(request, ("ユーザー名、またはパスワードが違います。再度お試しください。"))
@@ -189,15 +189,8 @@ def genba_list(request):
 def profile_genba(request):   
     if request.user.is_authenticated:
         profiles = Profile.objects.all()
-        genba_list = Genba.objects.all().order_by('-date_created')
-        genbas = []
-        if request.user.profile.contract_type == '下請け':
-            for genba in genba_list:
-                if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
-                    genbas.append(genba)
-        else:
-            genbas = genba_list
-    return render(request, "profile_genba.html", {"genbas": genbas})
+        genbas = Genba.objects.all().order_by('-date_created')
+    return render(request, "profile_genba.html", {"profiles": profiles, "genbas": genbas})
 
 @login_required(login_url='/login_user/')
 def genba_details(request, genba_id):
