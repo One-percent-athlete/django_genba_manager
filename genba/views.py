@@ -308,7 +308,7 @@ def export_csv(request):
         date_time = latest_time.date_created.date()
         str_time = date_time.strftime('%Y/%m/%d')
         f = "現場毎作業日報" + "_" + str_time + ".csv"
-        response = HttpResponse(content_type='text/csv')
+        response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
         filename = urllib.parse.quote((u'現場毎作業日報.csv').encode('utf-8'))
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'{filename}'
         

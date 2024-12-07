@@ -61,13 +61,13 @@ class GenbaForm(forms.ModelForm):
 	color = forms.ChoiceField(label="カレンダー表示色", choices=COLORS, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	job_description = forms.CharField(label="作業内容", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	note = forms.CharField(label="連絡事項", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
-	is_active = forms.BooleanField(label="完了", required=False)
+	finished = forms.BooleanField(label="完了", required=False)
 	start_date = forms.DateField(label='作業開始日', widget=forms.DateInput(attrs={'type': 'date'}))
 	end_date = forms.DateField(label='作業終了日', widget=forms.DateInput(attrs={'type': 'date'}))
 
 	class Meta:
 		model = Genba
-		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'is_active', 'start_date', 'end_date', 'color')
+		fields = ('head_person', 'attendees', 'name', 'client', 'address', 'job_description','note', 'finished', 'start_date', 'end_date', 'color')
 		labels = {
 			'head_person':'職長',
 			'attendees': '同行者',
