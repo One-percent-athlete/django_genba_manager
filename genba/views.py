@@ -301,13 +301,74 @@ def export_csv(request):
         date_time = latest_time.date_created.date()
         str_time = date_time.strftime('%Y/%m/%d')
         f = "現場毎作業日報" + "_" + str_time + ".csv"
-        response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
+        response = HttpResponse(content_type='text/csv; charset=utf-8-sig')
         filename = urllib.parse.quote((u'現場毎作業日報.csv').encode('utf-8'))
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'{filename}'
-        
     writer = csv.writer(response)
     daily_report_list = DailyReport.objects.all()
-    writer.writerow(["現場日時", "現場", "現場職長", "現場作業員", "現場詳細"])
+    writer.writerow(["日時", "現場名", "取引先", "現場作業員", "建退共", "職長", "同行者", "シフト", "場所", "開始時間", "終了時間", "高速道路乗り", "高速道路降り", "高速支払い方法", "駐車場料金", "宿泊料金", "その他支払い", "建替人", "作業内容", "連絡事項"])
+
+    {{report.date_created | date:"Y-m-j" }}
+                </th>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.genba.name }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.genba.client }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {% if report.kentaikyo %}
+                    有
+                    {% else %}
+                    無
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.genba.head_person }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {% for a in report.genba.attendees.all %}
+                    {{ a }}
+                    {% endfor %}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.shift }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.genba.address }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.start_time }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.end_time }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.highway_start }} から
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.highway_end }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.highway_payment }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.parking }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.hotel }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.other_payment }} {{ report.other_payment_amount }} 円
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.paid_by }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.daily_details }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ report.daily_note }}
     for report in daily_report_list:
         print([report.genba.name, report.genba.head_person.fullname, report.daily_details, report.date_created.date()])
         writer.writerow([report.genba.name, report.genba.head_person.fullname, report.daily_details, report.date_created.date()])

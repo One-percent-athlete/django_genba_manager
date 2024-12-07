@@ -86,7 +86,7 @@
             {% if report.Is_past == 'Future' %}
             <tbody>
                 <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
-                    {{report.date_created | date:"Y-m-j" }}
+                    {{report.date_created | date:"Y-m-d" }}
                 </th>
                 <td class="px-6 py-4 whitespace-nowrap">
                     {{ report.genba.name }}
