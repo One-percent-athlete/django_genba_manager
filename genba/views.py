@@ -20,7 +20,7 @@ from .forms import SignUpForm, UserProfileForm, GenbaForm, DailyReportForm
 # 本日の作業は本日の分のみ表示 ok
 # カレンダー表示エラー ok
 # csvフィルター 
-# csv出力
+# csv出力 ok
 
 @login_required(login_url='/login_user/')
 def home(request):
@@ -294,7 +294,6 @@ def delete_report(request, report_id):
 def schedule_details(request):
     return render(request, "schedule_details.html")
 
-
 def export_csv(request):
     latest_time = DailyReport.objects.latest("-date_created")
     if latest_time:
@@ -313,26 +312,6 @@ def export_csv(request):
         else:
             writer.writerow([report.date_created.date(), report.genba.name, report.genba.client, "有", report.genba.head_person.fullname, report.genba.attendees.all(), report.shift, report.genba.address, report.start_time, report.end_time, report.highway_start, report.highway_end, report.highway_payment, report.parking, report.hotel, f"{report.other_payment, report.other_payment_amount}", report.paid_by, report.daily_details, report.daily_note ])
     return response
-
-@login_required(login_url='/login/')
-def some(request):
-    response = HttpResponse(content_type='text/csv; charset=Shift-JIS')
-    latest_time = DailyReport.objects.latest("-date_created")
-    if latest_time:
-        date_time = latest_time.date_created.date()
-        str_time = date_time.strftime('%Y/%m/%d')
-        f = "現場毎作業日報" + "_" + str_time + ".csv"
-        daily_report_list = DailyReport.objects.all()
-        filename = urllib.parse.quote((f).encode("utf8"))
-        response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'{}'.format(filename)
-        writer = csv.writer(response, delimiter=",")
-        for report in daily_report_list:
-
-            writer.writerow([report.genba.name, report.genba.head_person, report.daily_details, report.date_created.date()])
-        return response
-    else:
-        messages.success(request, "データが見つかりません。")
-        return redirect("report_list")
 
 
 
