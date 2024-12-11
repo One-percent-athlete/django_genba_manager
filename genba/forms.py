@@ -101,7 +101,7 @@ class DailyReportForm(forms.ModelForm):
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
 	start_time = forms.TimeField(label="作業開始時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 	end_time = forms.TimeField(label="作業終了時間", widget=forms.TimeInput(attrs={'type': 'time'}))
-	break_time = forms.TimeField(label="休憩時間", widget=forms.TimeInput(attrs={'type': 'time'}))
+	break_time = forms.DecimalField(label="休憩時間", widget=forms.NumberInput(attrs={'step': 0.5}))
 
 	class Meta:
 		model = DailyReport
