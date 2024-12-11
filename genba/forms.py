@@ -53,10 +53,10 @@ class GenbaForm(forms.ModelForm):
         ('#9d94ff', '紫色'),
         ('#c780e8', '桃色'),
     )
-	head_person = forms.Select(attrs={"class":"form-select"}),
-	attendees = forms.SelectMultiple(attrs={"class":"form-control"}),
-	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"}),
-	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"}),
+	head_person = forms.Select(attrs={"class":"form-select"})
+	attendees = forms.ModelMultipleChoiceField(label="同行者", queryset=Profile.objects.all(), widget=forms.CheckboxSelectMultiple)
+	name = forms.Select(attrs={"class":"form-select", "placeholder": "現場名"})
+	client = forms.Select(attrs={"class":"form-select", "placeholder": "取引先"})
 	address = forms.CharField(label="場所", max_length=100, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 	color = forms.ChoiceField(label="カレンダー表示色", choices=COLORS, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
 	job_description = forms.CharField(label="作業内容", max_length=100,required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
