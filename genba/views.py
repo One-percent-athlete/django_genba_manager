@@ -297,7 +297,7 @@ def schedule_details(request):
 def export_csv(request):
     latest_time = DailyReport.objects.latest("-date_created")
     if latest_time:
-        date_time = latest_time.date_created.date()
+        date_time = now.date()
         str_time = date_time.strftime('%Y/%m/%d')
         f = "現場毎作業日報" + "_" + str_time + ".csv"
         response = HttpResponse(content_type='text/csv; charset=utf-8-sig')
