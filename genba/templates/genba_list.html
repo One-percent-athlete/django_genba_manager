@@ -137,7 +137,7 @@
             <tbody>
                 {% if genbas %}
                 {% for genba in genbas %}
-                {% if genba.finished == True or genba.Is_past == "Past" %}
+                {% if genba.finished == True %}
                 <tr class="border-b">
                     <th scope="row" class="pl-6 pr-3 py-4 font-medium whitespace-nowrap text-gray-900">
                         <a href="{% url 'genba_details' genba.id %}">
