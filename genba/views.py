@@ -95,6 +95,30 @@ def register_user(request):
         messages.success(request, ("ページは管理人のみがアクセスできます。"))
         return redirect("login_user")
 
+@login_required(login_url='/login_user/')
+def search_user(request):
+    now = datetime.now()
+    current_year = now.year
+    if request.method == "POST":
+        searched = request.POST['searched']
+        # venues = Venue.objects.filter(name__contains=searched)
+        # events = Event.objects.filter(description__contains=searched)
+        return render(request, 
+            "events/search_keywords.html", {
+            "current_year": current_year, 
+            "searched":searched,
+            })
+    else: 
+        return render(request, 
+            "events/search_keywords.html", {
+            "current_year": current_year, 
+            "searched":searched
+            })   
+
+
+
+
+@login_required(login_url='/login_user/')
 def update_profile(request, profile_id):
     if request.user.is_superuser:
         if request.user.is_authenticated:
@@ -126,9 +150,12 @@ def delete_user(request, user_id):
 
 @login_required(login_url='/login_user/')
 def profile_list(request):
-    profiles = Profile.objects.all().order_by('-date_created')
-    contract = request.user.profile.contract_type
-    return render(request, "profile_list.html", { "profiles": profiles, "contract": contract })
+    if request.user.is_authenticated:
+        profiles = Profile.objects.all().order_by('-date_created')
+        contract = request.user.profile.contract_type
+        return render(request, "profile_list.html", { "profiles": profiles, "contract": contract })
+    else:
+        return redirect('login_user')
 
 @login_required(login_url='/login_user/')
 def schedule(request):
@@ -167,6 +194,10 @@ def genba_list(request):
     if request.user.is_authenticated:
         genba_list = Genba.objects.all().order_by('-date_created')
         genbas = []
+        if request.method == "POST":
+            keyword = request.POST['keyword']
+            result_list = Genba.objects.filter(name__contains=keyword).order_by('-date_created')
+            return render(request, "genba_search_list.html", {"result_list": result_list, "keyword": keyword})
         if request.user.profile.contract_type == '下請け':
             for genba in genba_list:
                 if genba.head_person == request.user.profile or request.user.profile in genba.attendees.all():
@@ -174,6 +205,7 @@ def genba_list(request):
         else:
             genbas = genba_list
     return render(request, "genba_list.html", {"genbas": genbas})
+
 
 @login_required(login_url='/login_user/')
 def profile_genba(request):   
@@ -280,10 +312,7 @@ def delete_report(request, report_id):
         messages.success(request, "ログインしてください。")
         return redirect("login_user")
 
-@login_required(login_url='/login/')
-def schedule_details(request):
-    return render(request, "schedule_details.html")
-
+@login_required(login_url='/login_user/')
 def export_csv(request):
     latest_time = DailyReport.objects.latest("-date_created")
     if latest_time:
@@ -303,6 +332,11 @@ def export_csv(request):
             writer.writerow([report.date_created.date(), report.genba.name, report.genba.client, "有", report.genba.head_person.fullname, report.genba.attendees.all(), report.shift, report.genba.address, report.start_time, report.end_time, report.highway_start, report.highway_end, report.highway_payment, report.parking, report.hotel, f"{report.other_payment, report.other_payment_amount}", report.paid_by, report.daily_details, report.daily_note ])
     return response
 
+
+
+@login_required(login_url='/login/')
+def schedule_details(request):
+    return render(request, "schedule_details.html")
 
 
 
