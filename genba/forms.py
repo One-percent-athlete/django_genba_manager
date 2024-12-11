@@ -101,10 +101,11 @@ class DailyReportForm(forms.ModelForm):
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
 	start_time = forms.TimeField(label="作業開始時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 	end_time = forms.TimeField(label="作業終了時間", widget=forms.TimeInput(attrs={'type': 'time'}))
+	break_time = forms.TimeField(label="休憩時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 
 	class Meta:
 		model = DailyReport
-		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking', 'hotel', 'other_payment', 'other_payment_amount', 'paid_by', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
+		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking', 'hotel', 'other_payment', 'other_payment_amount', 'paid_by', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time', 'break_time')
 		labels = {
            'genba':'現場名',
            'distance':'走行距離数',
