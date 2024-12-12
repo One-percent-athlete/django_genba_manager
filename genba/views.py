@@ -246,7 +246,7 @@ def report_list(request):
         reports = []
         if request.method == "POST":
             keyword = request.POST['keyword']
-            result_list = DailyReport.objects.filter(genba__contains=keyword).order_by('-date_created')
+            result_list = DailyReport.objects.filter(date_created__contains=keyword).order_by('-date_created')
             return render(request, "report_search_list.html", {"result_list": result_list, "keyword": keyword})
         if request.user.profile.contract_type == '下請け':
             for report in reports_list:
@@ -321,8 +321,6 @@ def export_csv(request):
     else:
         messages.success(request, "データがありません。")
         return redirect("report_list")
-
-
 
 @login_required(login_url='/login/')
 def schedule_details(request):
