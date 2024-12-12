@@ -103,7 +103,7 @@ class DailyReport(models.Model):
     kentaikyo = models.BooleanField("建退共", default=False)
     start_time = models.TimeField('作業開始日')
     end_time = models.TimeField('作業終了日')
-    break_time_numeric = models.CharField("休憩時間", max_length=10, blank=True)
+    break_time = models.CharField("休憩時間", max_length=10, blank=True)
 
     @property
     def Is_past(self):
