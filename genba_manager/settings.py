@@ -29,7 +29,8 @@ SECRET_KEY = 'django-insecure-r4qe)&g-b^lzv$b==#+4$u*n7=^&ch#yiav4nc^sy(=9l+i2@)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["http://127.0.0.1:8000/","djangogenbamanager-production.up.railway.app", "https://djangogenbamanager-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000/","djangogenbamanager-production.up.railway.app", "https://djangogenbamanager-production.up.railway.app"]
 
 
 # Application definition
