@@ -31,7 +31,7 @@ class UserProfileForm(forms.ModelForm):
        	('下請け', '下請け'),
         ('正社員', '正社員'),
         ('管理', '管理'),]
-	fullname = forms.CharField(label="お名前フルネーム", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'スペースなし'}))
+	fullname = forms.CharField(label="お名前", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'フルネームスペースなし'}))
 	phone = forms.CharField(label="携帯電話番号", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'07012345678'}))
 	note = forms.CharField(label="備考欄", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'注意事項'}))
 	contract_type = forms.ChoiceField(label="雇用形態", choices=CHOICE, widget=forms.RadioSelect(attrs={'class': 'form-check-input'}))
@@ -101,11 +101,11 @@ class DailyReportForm(forms.ModelForm):
 	kentaikyo = forms.BooleanField(label="建退共", required=False),
 	start_time = forms.TimeField(label="作業開始時間", widget=forms.TimeInput(attrs={'type': 'time'}))
 	end_time = forms.TimeField(label="作業終了時間", widget=forms.TimeInput(attrs={'type': 'time'}))
-	# break_time_numeric = forms.CharField(label="休憩時間", max_length=10, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+	break_time_numeric = forms.CharField(label="休憩時間", max_length=10, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 	class Meta:
 		model = DailyReport
-		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking', 'hotel', 'other_payment', 'other_payment_amount', 'paid_by', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time')
+		fields = ('genba', 'distance', 'highway_start', 'highway_end', 'highway_payment', 'shift', 'parking', 'hotel', 'other_payment', 'other_payment_amount', 'paid_by', 'daily_details', 'daily_note', 'kentaikyo', 'start_time', 'end_time', 'break_time_numeric')
 		labels = {
            'genba':'現場名',
            'distance':'走行距離数',
