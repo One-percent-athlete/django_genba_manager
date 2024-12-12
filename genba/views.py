@@ -96,26 +96,6 @@ def register_user(request):
         return redirect("login_user")
 
 @login_required(login_url='/login_user/')
-def search_user(request):
-    now = datetime.now()
-    current_year = now.year
-    if request.method == "POST":
-        searched = request.POST['searched']
-        # venues = Venue.objects.filter(name__contains=searched)
-        # events = Event.objects.filter(description__contains=searched)
-        return render(request, 
-            "events/search_keywords.html", {
-            "current_year": current_year, 
-            "searched":searched,
-            })
-    else: 
-        return render(request, 
-            "events/search_keywords.html", {
-            "current_year": current_year, 
-            "searched":searched
-            })   
-
-@login_required(login_url='/login_user/')
 def update_profile(request, profile_id):
     if request.user.is_superuser:
         if request.user.is_authenticated:
@@ -264,6 +244,10 @@ def report_list(request):
     if request.user.is_authenticated:
         reports_list = DailyReport.objects.all().order_by('-date_created')
         reports = []
+        if request.method == "POST":
+            keyword = request.POST['keyword']
+            result_list = DailyReport.objects.filter(genba__contains=keyword).order_by('-date_created')
+            return render(request, "report_search_list.html", {"result_list": result_list, "keyword": keyword})
         if request.user.profile.contract_type == '下請け':
             for report in reports_list:
                 if report.genba.head_person == request.user.profile or request.user.profile in report.genba.attendees.all():
